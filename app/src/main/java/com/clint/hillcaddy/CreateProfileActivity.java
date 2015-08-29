@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class CreateProfileActivity extends AppCompatActivity {
 
@@ -39,6 +40,8 @@ public class CreateProfileActivity extends AppCompatActivity {
     public void createProfile(View view)
     {
         //get name and create a profile with it
+        EditText editText = (EditText)findViewById(R.id.new_Name);
+        String newName = editText.getText().toString();
 
 
         //show message to indicate whether profile was successfully created
