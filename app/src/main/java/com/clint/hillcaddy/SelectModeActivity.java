@@ -7,18 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class SelectModeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_select_mode);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_select_mode, menu);
         return true;
     }
 
@@ -37,24 +37,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void loadProfile(View view)
+    public void showCourseModeView(View view)
     {
-        //load selected profile from local db
-
-
-
-
-        //show Select Mode activity
-        Intent intent = new Intent(this,SelectModeActivity.class);
+        Intent intent = new Intent(this, CourseModeActivity.class);
         startActivity(intent);
-    }
 
-    public void showCreateProfileView(View view)
-    {
-        //show Create New Profile view
-        Intent intent = new Intent(this, CreateProfileActivity.class);
-        startActivity(intent);
+
 
     }
 
+    public void showRangeModeView(View view)
+    {
+        Intent intent = new Intent(this, RangeModeActivity.class);
+        startActivity(intent);
+
+    }
 }

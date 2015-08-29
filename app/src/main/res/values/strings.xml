@@ -12,5 +12,20 @@
     //Create New Profile Activity
     <string name="new_name_text">Name</string>
     <string name="create_prof_button">Create Profile</string>
+    <string name="title_activity_select_mode">Select Mode</string>
+
+    //Select Mote Activity
+    <string name="sel_course_button">Course Mode</string>
+    <string name="sel_range_button">Range Mode</string>
+    <string name="sel_mode_desc">Select Course Mode to launch the HillCaddy shot calculator or select Range Mode to add clubs and shots to your profile.</string>
+
+    //Course Mode Activity
+    <string name="title_activity_course_mode">Course Mode</string>
+
+
+    //Range Mode Activity
+    <string name="title_activity_range_mode">Range Mode</string>
+
+
 
 </resources>

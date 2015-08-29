@@ -24,6 +24,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clint.hillcaddy.MainActivity" />
         </activity>
+        <activity
+            android:name=".SelectModeActivity"
+            android:label="@string/title_activity_select_mode"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CourseModeActivity"
+            android:label="@string/title_activity_course_mode"
+            android:parentActivityName=".SelectModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.SelectModeActivity" />
+        </activity>
+        <activity
+            android:name=".RangeModeActivity"
+            android:label="@string/title_activity_range_mode"
+            android:parentActivityName=".SelectModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.SelectModeActivity" />
+        </activity>
     </application>
 
 </manifest>
