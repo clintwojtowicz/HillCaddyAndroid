@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">HillCaddy</string>
 
-    <string name="hello_world">Hello world!</string>
+
+    //Main Activity
+    <string name="sel_profile_text">Select Golfer Profile</string>
     <string name="action_settings">Settings</string>
+    <string name="sel_prof_button">Load Golfer Profile</string>
+    <string name="create_prof_view_button">Create New Golfer Profile</string>
+    <string name="title_activity_create_profile">Create New Profile</string>
+
+    //Create New Profile Activity
+    <string name="new_name_text">Name</string>
+    <string name="create_prof_button">Create Profile</string>
+
 </resources>

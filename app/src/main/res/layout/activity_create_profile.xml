@@ -4,37 +4,27 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    tools:context="com.clint.hillcaddy.CreateProfileActivity"
+    android:orientation="vertical"
+    >
 
-    <TextView android:text="@string/sel_profile_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:textSize="18sp"/>
-
-    <Spinner
-        android:id="@+id/selProf_Spinner"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        >
-    </Spinner>
+        android:text="@string/new_name_text"
+        android:textSize="18sp"
+        android:paddingBottom="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id= "@+id/new_Name"/>
 
     <Button
-        android:text="@string/sel_prof_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="loadProfile"
-        />
-
-    <Button
-        android:text="@string/create_prof_view_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="showCreateProfileView"
-        />
-
+        android:text="@string/create_prof_button"
+        android:onClick="createProfile"/>
 
 
 
