@@ -1,9 +1,12 @@
 package com.clint.hillcaddy;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class RangeModeActivity extends AppCompatActivity {
 
@@ -34,4 +37,40 @@ public class RangeModeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void addShot(View view)
+    {
+        EditText speedEditText = (EditText)findViewById(R.id.ballSpeed_range_editText);
+        Float ballSpeed = Float.parseFloat(speedEditText.getText().toString());
+
+        EditText spinEditText = (EditText)findViewById(R.id.backSpin_range_editText);
+        Integer backSpin = Integer.parseInt(spinEditText.getText().toString());
+
+        EditText angleEditText = (EditText)findViewById(R.id.launchAngle_range_editText);
+        Float launchAngle = Float.parseFloat(angleEditText.getText().toString());
+
+        //send shot data to db
+        //addShotToDB(ballSpeed, backSpin, launchAngle);
+
+
+
+    }
+
+    public void addNewClub(View view)
+    {
+        //Intent intent = new Intent(this, AddClubActivity.class);
+        //startActivity(intent);
+
+
+    }
+
+    public void viewShots(View view)
+    {
+        //Intent intent = new Intent(this, ViewShotsActivity.class);
+        //startActivity(intent);
+
+
+    }
+
+
 }

@@ -25,6 +25,15 @@
 
     //Range Mode Activity
     <string name="title_activity_range_mode">Range Mode</string>
+    <string name="range_sel_club">Select Club</string>
+    <string name="ball_speed_text">Ball Speed (mph)</string>
+    <string name="back_spin_text">Back Spin (rpm)</string>
+    <string name="launch_angle_text">Launch Angle (degrees)</string>
+    <string name="addShot_range_button">Add Shot</string>
+    <string name="addClub_range_button">Add New Club</string>
+    <string name="viewShots_range_button">View Shots</string>
+
+
 
 
 

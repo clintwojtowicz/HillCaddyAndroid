@@ -7,6 +7,87 @@
     tools:context="com.clint.hillcaddy.RangeModeActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/range_sel_club"
+        android:paddingBottom="20dp"
+        android:textSize = "18dp"/>
+
+    <Spinner
+        android:id="@+id/selClub_Spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        >
+    </Spinner>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/addClub_range_button"
+        android:onClick="addNewClub" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ball_speed_text"
+        android:textSize="14sp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id= "@+id/ballSpeed_range_editText"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/back_spin_text"
+        android:textSize="14sp"
+        android:paddingBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id= "@+id/backSpin_range_editText"
+        android:inputType="number"
+        android:maxLength="5"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/launch_angle_text"
+        android:textSize="14sp"
+        android:paddingBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id= "@+id/launchAngle_range_editText"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:paddingBottom="10dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/addShot_range_button"
+        android:onClick="addShot"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewShots_range_button"
+        android:onClick="addShot"/>
+
+
+
 
 
 </LinearLayout>
