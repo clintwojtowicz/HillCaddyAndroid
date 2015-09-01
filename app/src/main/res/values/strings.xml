@@ -33,6 +33,13 @@
     <string name="addClub_range_button">Add New Club</string>
     <string name="viewShots_range_button">View Shots</string>
 
+    //Add Club Activity
+    <string name="title_activity_add_club">Add New Club</string>
+    <string name="new_club_name_text">New Club Name</string>
+
+    //View Shots Activity
+    <string name="title_activity_view_shots">View Shots</string>
+
 
 
 

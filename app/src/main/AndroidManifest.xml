@@ -48,6 +48,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clint.hillcaddy.SelectModeActivity" />
         </activity>
+        <activity
+            android:name=".AddClubActivity"
+            android:label="@string/title_activity_add_club"
+            android:parentActivityName=".RangeModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.RangeModeActivity" />
+        </activity>
+        <activity
+            android:name=".ViewShotsActivity"
+            android:label="@string/title_activity_view_shots"
+            android:parentActivityName=".RangeModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.RangeModeActivity" />
+        </activity>
     </application>
 
 </manifest>

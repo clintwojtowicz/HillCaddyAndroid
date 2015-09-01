@@ -58,16 +58,16 @@ public class RangeModeActivity extends AppCompatActivity {
 
     public void addNewClub(View view)
     {
-        //Intent intent = new Intent(this, AddClubActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, AddClubActivity.class);
+        startActivity(intent);
 
 
     }
 
     public void viewShots(View view)
     {
-        //Intent intent = new Intent(this, ViewShotsActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ViewShotsActivity.class);
+        startActivity(intent);
 
 
     }
