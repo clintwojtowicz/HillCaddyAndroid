@@ -21,6 +21,11 @@ public class Profile
         name = "";
     }
 
+    public Profile(String _name)
+    {
+        name = _name;
+    }
+
     public void setName(String _name)
     {
         name = _name;

@@ -11,13 +11,42 @@ public class Shot
 
     private Integer distance;
 
-
     public Shot(Double _ballSpeed, Integer _backSpin, Double _launchAngle)
     {
         ballSpeed = _ballSpeed;
         backSpin = _backSpin;
         launchAngle = _launchAngle;
 
+    }
+
+    public void setBallSpeed(Double bs)
+    {
+        ballSpeed = bs;
+    }
+
+    public void setBackSpin(Integer bs)
+    {
+        backSpin = bs;
+    }
+
+    public void setLaunchAngle(Double la)
+    {
+        launchAngle = la;
+    }
+
+    public Double getBallSpeed()
+    {
+        return ballSpeed;
+    }
+
+    public Integer getBackSpin()
+    {
+        return backSpin;
+    }
+
+    public Double getLaunchAngle()
+    {
+        return launchAngle;
     }
 
     public void calculateDistance()

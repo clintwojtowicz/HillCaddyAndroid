@@ -10,6 +10,8 @@ public class GlobalVars extends Application
     private Profile currentProfile = new Profile();
     private Integer elevation = 0;      //TODO: implement ro based on elevation in settings
 
+    private DatabaseHelper db = new DatabaseHelper(this);
+
     public void setCurrentProfile(Profile profile)
     {
         this.currentProfile = profile;
