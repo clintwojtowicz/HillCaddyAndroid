@@ -15,7 +15,7 @@
         android:textSize = "18dp"/>
 
     <Spinner
-        android:id="@+id/selClub_Spinner"
+        android:id="@+id/selClub_range_Spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
@@ -25,7 +25,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addClub_range_button"
+        android:text="@string/addRemove_range_button"
         android:onClick="addNewClub" />
 
     <TextView
@@ -84,7 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/viewShots_range_button"
-        android:onClick="addShot"/>
+        android:onClick="viewShots"/>
 
 
 

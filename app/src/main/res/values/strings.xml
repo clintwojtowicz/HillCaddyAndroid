@@ -9,7 +9,7 @@
     <string name="create_prof_view_button">Create New Golfer Profile</string>
     <string name="title_activity_create_profile">Create New Profile</string>
 
-    //Create New Profile Activity
+    //Create New com.clint.hillcaddy.Profile Activity
     <string name="new_name_text">Name</string>
     <string name="create_prof_button">Create Profile</string>
     <string name="title_activity_select_mode">Select Mode</string>
@@ -28,14 +28,18 @@
     <string name="range_sel_club">Select Club</string>
     <string name="ball_speed_text">Ball Speed (mph)</string>
     <string name="back_spin_text">Back Spin (rpm)</string>
+    <string name="addRemove_range_button">Add/Remove Clubs</string>
     <string name="launch_angle_text">Launch Angle (degrees)</string>
     <string name="addShot_range_button">Add Shot</string>
-    <string name="addClub_range_button">Add New Club</string>
+
     <string name="viewShots_range_button">View Shots</string>
 
     //Add Club Activity
-    <string name="title_activity_add_club">Add New Club</string>
+    <string name="title_activity_add_club">Edit Bag</string>
     <string name="new_club_name_text">New Club Name</string>
+    <string name="addClub_editBag_button">Add New Club</string>
+    <string name="remove_club_name_text">Select Club to Remove</string>
+    <string name="remove_club_button">Remove Club</string>
 
     //View Shots Activity
     <string name="title_activity_view_shots">View Shots</string>

@@ -1,17 +1,28 @@
 package com.clint.hillcaddy;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 public class AddClubActivity extends AppCompatActivity {
+
+    GlobalVars globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_club);
+        globals = ((GlobalVars)getApplicationContext());
+        updateClubsSpinner();
     }
 
     @Override
@@ -38,8 +49,57 @@ public class AddClubActivity extends AppCompatActivity {
 
     public void addClubToProfile(View view)
     {
+        hideKeyboard();
+        EditText nameEditText = (EditText)findViewById(R.id.name_addClub_editText);
+        String clubName = nameEditText.getText().toString();
+        nameEditText.getText().clear();
 
+        clubName = clubName.trim();
+        if(clubName.isEmpty())
+        {
+            //invalid name, show error window
+
+        }
+        else
+        {
+            Club newClub = new Club(clubName);
+
+            Profile profile = globals.getCurrentProfile();
+            profile.addClubToBag(newClub);
+            globals.setCurrentProfile(profile);
+
+            updateClubsSpinner();
+        }
 
 
     }
+
+    public void removeClubFromProfile(View view)
+    {
+        //get the club name from the spinner and remove it from the profile and db
+
+
+    }
+
+    private void updateClubsSpinner()
+    {
+        Profile profile = globals.getCurrentProfile();
+        ArrayList<String> clubNames = profile.getClubNameList();
+
+
+        Spinner spinner = (Spinner)findViewById(R.id.selClub_edit_Spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, clubNames);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+
+    }
+
+    private void hideKeyboard()
+    {
+        View view = this.getCurrentFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+
+    }
+
 }

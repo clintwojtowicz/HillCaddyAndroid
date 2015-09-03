@@ -25,7 +25,30 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addClub_range_button"
+        android:text="@string/addClub_editBag_button"
         android:onClick="addClubToProfile"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_club_name_text"
+        android:textSize="18sp"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp"/>
+
+    <Spinner
+        android:id="@+id/selClub_edit_Spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        >
+    </Spinner>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_club_button"
+        android:onClick="removeClubFromProfile"/>
+
 
 </LinearLayout>
