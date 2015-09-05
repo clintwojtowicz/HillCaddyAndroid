@@ -51,21 +51,30 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     }
 
-    public void addProfile(String user)
+    public boolean addProfile(String user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        boolean valid = false;
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user);
-        values.put(KEY_LASTUSED, 0);
+        if(checkForOriginalProfile(user, db))
+        {
+            ContentValues values = new ContentValues();
+            values.put(KEY_NAME, user);
+            values.put(KEY_LASTUSED, 0);
 
-        db.insert(TABLE_PROFILES, null, values);
-        createShotTable(user, db);
-        createClubTable(user, db);
+            db.insert(TABLE_PROFILES, null, values);
+            createShotTable(user, db);
+            createClubTable(user, db);
 
-        setLastUsed(user, db);
+            setLastUsed(user, db);
+
+            valid = true;
+
+        }
 
         db.close();
+
+        return valid;
 
     }
 
@@ -104,9 +113,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     }
 
-    public boolean checkForOriginalProfile(String nameToCheck)
+    public boolean checkForOriginalProfile(String nameToCheck,  SQLiteDatabase db)
     {
-        SQLiteDatabase db = this.getReadableDatabase();
         String command = "SELECT "+KEY_NAME+ " FROM "+TABLE_PROFILES+" WHERE "+KEY_NAME+" = '"+nameToCheck+"';";
         Cursor cursor = db.rawQuery(command, null);
 
@@ -119,7 +127,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
 
         cursor.close();
-        db.close();
 
         return original;
     }
@@ -150,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         values.put(KEY_BACKSPIN, newShot.getBackSpin());
         values.put(KEY_ANGLE, newShot.getLaunchAngle());
 
-        db.insert(user, null, values);
+        db.insert(user+"_shots", null, values);
 
         db.close();
     }
@@ -263,10 +270,41 @@ public class DatabaseHelper extends SQLiteOpenHelper
         ContentValues values = new ContentValues();
         values.put(KEY_CLUBNAME, club.getName());
 
-        db.insert(user+"_clubs", null, values);
+        db.insert(user + "_clubs", null, values);
 
         db.close();
 
+    }
+
+    public List<String> getShotsAsStringsWithLabels(String user, String club)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String command = "SELECT "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        List<String> list = new ArrayList<String>();
+        String temp;
+        if(cursor.moveToFirst()) {
+            do {
+                temp = "Ball Speed: "+ cursor.getString(0) + " Back Spin: "+ cursor.getString(1) + " Launch Angle: "+ cursor.getString(2);
+                list.add(temp);
+            }while(cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        return list;
+
+
+    }
+
+    public void removeShot(String user, String club, Shot shot)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String command = "DELETE FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' AND "+KEY_BALLSPEED+"= "+shot.getBallSpeed()+" AND "
+                +KEY_BACKSPIN+"= "+shot.getBackSpin()+" AND "+KEY_ANGLE+"= "+shot.getLaunchAngle()+";";
+        db.execSQL(command);
+        db.close();
     }
 
 }

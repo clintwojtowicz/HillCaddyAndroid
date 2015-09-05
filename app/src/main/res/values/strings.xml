@@ -43,6 +43,8 @@
 
     //View Shots Activity
     <string name="title_activity_view_shots">View Shots</string>
+    <string name="viewShots_viewShots_button">View Shots for Selected Club</string>
+    <string name="removeShot_viewShots_button">Remove Selected Shot</string>
 
 
 

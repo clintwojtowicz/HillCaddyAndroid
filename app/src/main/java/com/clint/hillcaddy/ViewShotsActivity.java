@@ -2,15 +2,27 @@ package com.clint.hillcaddy;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewShotsActivity extends AppCompatActivity {
+
+    GlobalVars globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_shots);
+        globals = ((GlobalVars)getApplicationContext());
+        updateClubsSpinner();
     }
 
     @Override
@@ -34,4 +46,94 @@ public class ViewShotsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void updateClubsSpinner()
+    {
+        Profile profile = globals.getCurrentProfile();
+        ArrayList<String> clubNames = profile.getClubNameList();
+
+        Spinner spinner = (Spinner)findViewById(R.id.selClub_viewShots_Spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, clubNames);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+
+    }
+
+    public void showShots(View view)
+    {
+        Spinner clubSpinner = (Spinner)findViewById(R.id.selClub_viewShots_Spinner);
+        String selectedClub = clubSpinner.getSelectedItem().toString();
+
+        DatabaseHelper db = globals.getDB();
+        String currentUser = globals.getCurrentProfileName();
+
+        List<String> shots = db.getShotsAsStringsWithLabels(currentUser, selectedClub);
+
+        ListView shotsView = (ListView)findViewById(R.id.shots_listView);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, shots);
+        shotsView.setAdapter(listAdapter);
+        shotsView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+    }
+
+    public void removeSelectedShot(View view)
+    {
+        ListView shotsView = (ListView)findViewById(R.id.shots_listView);
+        int position = shotsView.getCheckedItemPosition();
+
+        boolean valid = true;
+        String selectedItem = "";
+        try
+        {
+            selectedItem = shotsView.getItemAtPosition(position).toString();
+        }
+        catch (Exception e)
+        {
+            valid = false;
+        }
+        if (valid)
+        {
+            Shot selectedShot = parseShotLabels(selectedItem);
+
+            DatabaseHelper db = globals.getDB();
+            String currentUser = globals.getCurrentProfileName();
+
+            Spinner clubSpinner = (Spinner) findViewById(R.id.selClub_viewShots_Spinner);
+            String currentClubName = clubSpinner.getSelectedItem().toString();
+
+            db.removeShot(currentUser, currentClubName, selectedShot);
+
+            showShots(getCurrentFocus());
+        }
+
+    }
+
+    public Shot parseShotLabels(String shotWithLabels)
+    {
+        //"Ball Speed: "+ cursor.getString(0) + " Back Spin: "+ cursor.getString(1) + " Launch Angle: "+ cursor.getString(2);
+
+        shotWithLabels = shotWithLabels.replaceAll("Ball Speed: ", "");
+        shotWithLabels = shotWithLabels.replaceAll("Back Spin: ", "");
+        shotWithLabels = shotWithLabels.replaceAll("Launch Angle: ", "");
+        shotWithLabels = shotWithLabels.replaceAll("  ", " ");
+
+        Log.v("shotWithLabels", shotWithLabels);
+
+        String[] values = shotWithLabels.split(" ");
+
+        Log.v("values0", values[0]);
+        Log.v("values1", values[1]);
+        Log.v("values2", values[2]);
+
+        Double speed = Double.parseDouble(values[0].trim());
+        Integer spin = Integer.parseInt(values[1].trim());
+        Double angle = Double.parseDouble(values[2].trim());
+
+        Shot shot = new Shot(speed, spin, angle);
+        return shot;
+
+    }
+
+
+
 }

@@ -46,6 +46,11 @@ public class GlobalVars extends Application
         return db;
     }
 
+    public String getCurrentProfileName()
+    {
+        return this.currentProfile.getName();
+    }
+
 
 
 

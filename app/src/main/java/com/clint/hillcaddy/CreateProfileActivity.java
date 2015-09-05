@@ -49,9 +49,14 @@ public class CreateProfileActivity extends AppCompatActivity {
         String newName = editText.getText().toString();
 
         DatabaseHelper db = globals.getDB();
-        db.addProfile(newName);
+        boolean success = db.addProfile(newName);
 
         hideKeyboard();
+
+        if(!success)
+        {
+            //show error window telling the user that name is already used
+        }
 
     }
 

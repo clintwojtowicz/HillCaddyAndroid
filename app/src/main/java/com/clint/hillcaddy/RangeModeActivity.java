@@ -53,6 +53,8 @@ public class RangeModeActivity extends AppCompatActivity {
         Double ballSpeed = 0.0;
         Integer backSpin = 0;
         Double launchAngle = 0.0;
+
+        boolean valid = true;
         try {
             EditText speedEditText = (EditText) findViewById(R.id.ballSpeed_range_editText);
             ballSpeed = Double.parseDouble(speedEditText.getText().toString());
@@ -67,14 +69,21 @@ public class RangeModeActivity extends AppCompatActivity {
         {
             //show invalid shot message box
             showMessage("Invalid Shot Parameter");
+            valid = false;
         }
+        if(valid)
+        {
+            Shot shot = new Shot(ballSpeed, backSpin, launchAngle);
 
-        Shot shot = new Shot(ballSpeed, backSpin, launchAngle);
+            //send shot data to db
+            DatabaseHelper db = globals.getDB();
+            String currentProf = globals.getCurrentProfile().getName();
 
-        //send shot data to db
-        //addShotToDB(ballSpeed, backSpin, launchAngle);
+            Spinner clubSpinner = (Spinner) findViewById(R.id.selClub_range_Spinner);
+            String clubUsed = clubSpinner.getSelectedItem().toString();
 
-
+            db.addShot(currentProf, clubUsed, shot);
+        }
 
     }
 
