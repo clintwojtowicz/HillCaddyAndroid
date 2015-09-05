@@ -1,20 +1,28 @@
 package com.clint.hillcaddy;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    GlobalVars globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        globals = ((GlobalVars)getApplicationContext());
+        updateProfsSpinner();
     }
 
     @Override
@@ -42,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
     public void loadProfile(View view)
     {
         //load selected profile from local db
+        Spinner profSpinner = (Spinner)findViewById(R.id.selProf_Spinner);
+        String selectedProf = profSpinner.getSelectedItem().toString();
 
-
-
+        globals.setCurrentProfileWithName(selectedProf);
 
         //show Select Mode activity
         Intent intent = new Intent(this,SelectModeActivity.class);
@@ -58,5 +67,20 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    private void updateProfsSpinner()
+    {
+        DatabaseHelper db = globals.getDB();
+        List<String> nameList = db.getAllProfileNames();
+
+        Spinner spinner = (Spinner)findViewById(R.id.selProf_Spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nameList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+
+    }
+
+
+
 
 }

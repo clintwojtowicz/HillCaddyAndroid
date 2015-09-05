@@ -68,6 +68,9 @@ public class AddClubActivity extends AppCompatActivity {
             profile.addClubToBag(newClub);
             globals.setCurrentProfile(profile);
 
+            DatabaseHelper db = globals.getDB();
+            db.addClub(profile.getName(), newClub);
+
             updateClubsSpinner();
         }
 

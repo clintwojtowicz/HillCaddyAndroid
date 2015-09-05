@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Clint on 9/3/2015.
  */
@@ -58,6 +61,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         db.insert(TABLE_PROFILES, null, values);
         createShotTable(user, db);
+        createClubTable(user, db);
+
+        setLastUsed(user, db);
 
         db.close();
 
@@ -65,9 +71,57 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void createShotTable(String user, SQLiteDatabase db)
     {
-        String cmd = "CREATE TABLE IF NOT EXISTS "+user+"("+KEY_CLUBNAME+" VARCHAR, "+KEY_BALLSPEED+" DOUBLE, "+KEY_BACKSPIN+" INTEGER, "+KEY_ANGLE+" DOUBLE);";
+        String cmd = "CREATE TABLE IF NOT EXISTS "+user+"_shots("+KEY_CLUBNAME+" VARCHAR, "+KEY_BALLSPEED+" DOUBLE, "+KEY_BACKSPIN+" INTEGER, "+KEY_ANGLE+" DOUBLE);";
         db.execSQL(cmd);
 
+    }
+
+    public void createClubTable(String user, SQLiteDatabase db)
+    {
+        String cmd = "CREATE TABLE IF NOT EXISTS "+user+"_clubs("+KEY_CLUBNAME+" VARCHAR);";
+        db.execSQL(cmd);
+
+    }
+
+    public List<Club> loadClubList(String user, SQLiteDatabase db)
+    {
+        String command = "SELECT "+KEY_CLUBNAME+ " FROM "+user+"_clubs ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        List<Club> list = new ArrayList<Club>();
+        if(cursor.moveToFirst()) {
+            do {
+                Club club = new Club();
+                club.setName(cursor.getString(0));
+                list.add(club);
+
+            }while(cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        return list;
+
+    }
+
+    public boolean checkForOriginalProfile(String nameToCheck)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "SELECT "+KEY_NAME+ " FROM "+TABLE_PROFILES+" WHERE "+KEY_NAME+" = '"+nameToCheck+"';";
+        Cursor cursor = db.rawQuery(command, null);
+
+        boolean original = true;
+
+        if(cursor.moveToFirst())
+        {
+            //the name is already there. return false
+            original = false;
+        }
+
+        cursor.close();
+        db.close();
+
+        return original;
     }
 
     public void removeProfile(String user)
@@ -104,7 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public Profile getLastUsedProfile()
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "SELECT "+KEY_NAME+ " FROM "+TABLE_PROFILES+" WHERE "+KEY_LASTUSED+" = '1';";
+        String command = "SELECT "+KEY_NAME+ " FROM "+TABLE_PROFILES+" WHERE "+KEY_LASTUSED+" = 1;";
         Cursor cursor = db.rawQuery(command, null);
 
         Profile profile = new Profile();
@@ -113,21 +167,106 @@ public class DatabaseHelper extends SQLiteOpenHelper
             profile.setName(name);
 
             //get all of the clubs for that profile
+            List<Club> clubsToLoad = loadClubList(name, db);
+            profile.setBag(clubsToLoad);
+
 
         }
         else
         {
-            //no last used profiles, select first one
+            //no last used profiles, return profile with name none
+            profile.setName("none");
 
         }
 
+        cursor.close();
+        db.close();
+
         return profile;
+
+    }
+
+    public void setLastUsed(String lastProf, SQLiteDatabase db)
+    {
+        //set all last used to 0
+        String command = "UPDATE "+TABLE_PROFILES+" SET "+KEY_LASTUSED+" = 0;";
+        db.execSQL(command);
+
+        //set lastProf to 1
+        command = "UPDATE "+TABLE_PROFILES+" SET "+KEY_LASTUSED+" = 1 WHERE "+KEY_NAME+" = '"+lastProf+"';";
+        db.execSQL(command);
 
 
     }
 
+    public List<String> getAllProfileNames()
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String command = "SELECT "+KEY_NAME+ " FROM "+TABLE_PROFILES+" ;";
+        Cursor cursor = db.rawQuery(command, null);
 
+        List<String> list = new ArrayList<String>();
+        if(cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(0));
+            }while(cursor.moveToNext());
 
+        }
+        cursor.close();
+        db.close();
+        return list;
 
+    }
+
+    public List<Club> getClubList(String user)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String command = "SELECT "+KEY_CLUBNAME+ " FROM "+user+"_clubs ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        List<Club> list = new ArrayList<Club>();
+        if(cursor.moveToFirst()) {
+            do {
+                Club club = new Club();
+                club.setName(cursor.getString(0));
+                list.add(club);
+
+            }while(cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        return list;
+
+    }
+
+    public void setLastUsed(String lastProf)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+
+        //set all last used to 0
+        String command = "UPDATE "+TABLE_PROFILES+" SET "+KEY_LASTUSED+" = 0;";
+        db.execSQL(command);
+
+        //set lastProf to 1
+        command = "UPDATE "+TABLE_PROFILES+" SET "+KEY_LASTUSED+" = 1 WHERE "+KEY_NAME+" = '"+lastProf+"';";
+        db.execSQL(command);
+
+        db.close();
+
+    }
+
+    public void addClub(String user, Club club)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_CLUBNAME, club.getName());
+
+        db.insert(user+"_clubs", null, values);
+
+        db.close();
+
+    }
 
 }

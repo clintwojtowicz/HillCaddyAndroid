@@ -31,6 +31,11 @@ public class Profile
         name = _name;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
     public void addClubToBag(Club newClub)
     {
         bag.add(newClub);
@@ -48,6 +53,12 @@ public class Profile
         }
 
         return clubNames;
+
+    }
+
+    public void setBag(List<Club> clubs)
+    {
+        bag = clubs;
 
     }
 

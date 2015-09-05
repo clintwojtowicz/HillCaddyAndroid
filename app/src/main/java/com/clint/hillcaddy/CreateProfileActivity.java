@@ -1,18 +1,23 @@
 package com.clint.hillcaddy;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 public class CreateProfileActivity extends AppCompatActivity {
+
+    GlobalVars globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
+        globals = ((GlobalVars)getApplicationContext());
     }
 
     @Override
@@ -43,9 +48,18 @@ public class CreateProfileActivity extends AppCompatActivity {
         EditText editText = (EditText)findViewById(R.id.new_Name);
         String newName = editText.getText().toString();
 
+        DatabaseHelper db = globals.getDB();
+        db.addProfile(newName);
 
-        //show message to indicate whether profile was successfully created
+        hideKeyboard();
 
+    }
+
+    private void hideKeyboard()
+    {
+        View view = this.getCurrentFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
     }
 }
