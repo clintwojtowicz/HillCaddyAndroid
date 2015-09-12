@@ -35,6 +35,7 @@ public class GlobalVars extends Application
         if ((currentProfile == null)||(currentProfile.getName() == ""))
         {
             this.currentProfile = db.getLastUsedProfile();
+            this.currentProfile.calculateClubAverages(db);
         }
 
         return this.currentProfile;
@@ -46,10 +47,6 @@ public class GlobalVars extends Application
         return db;
     }
 
-    public String getCurrentProfileName()
-    {
-        return this.currentProfile.getName();
-    }
 
 
 

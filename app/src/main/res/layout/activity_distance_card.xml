@@ -4,21 +4,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.clint.hillcaddy.CourseModeActivity"
+    tools:context="com.clint.hillcaddy.DistanceCardActivity"
     android:orientation="vertical">
 
-
-
-    <Button
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/viewDistanceCard_course_button"
-        android:onClick="showDistanceCard" />
+        android:id="@+id/distances_listView"
+        >
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/calcClub_course_button"
-        android:onClick="showRecommendedClubs" />
+
+    </ListView>
 
 </LinearLayout>

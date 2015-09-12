@@ -46,6 +46,14 @@
     <string name="viewShots_viewShots_button">View Shots for Selected Club</string>
     <string name="removeShot_viewShots_button">Remove Selected Shot</string>
 
+    //Course Mode Activity
+    <string name="viewDistanceCard_course_button">View Club Distance Card</string>
+    <string name="calcClub_course_button">Get Club Recommendation</string>
+    <string name="title_activity_distance_card">Distance Card</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_recommended_club">Recommended Club</string>
+
 
 
 

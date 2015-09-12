@@ -9,10 +9,13 @@ import android.view.View;
 
 public class SelectModeActivity extends AppCompatActivity {
 
+    GlobalVars globals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_mode);
+        globals = ((GlobalVars)getApplicationContext());
     }
 
     @Override
@@ -42,7 +45,11 @@ public class SelectModeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CourseModeActivity.class);
         startActivity(intent);
 
-
+        //calculate the average shot for each club when entering course mode
+        Profile profile = globals.getCurrentProfile();
+        DatabaseHelper db = globals.getDB();
+        profile.calculateClubAverages(db);
+        globals.setCurrentProfile(profile);
 
     }
 
@@ -52,4 +59,6 @@ public class SelectModeActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 }

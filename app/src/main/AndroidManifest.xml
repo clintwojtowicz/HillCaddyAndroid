@@ -65,6 +65,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clint.hillcaddy.RangeModeActivity" />
         </activity>
+        <activity
+            android:name=".DistanceCardActivity"
+            android:label="@string/title_activity_distance_card"
+            android:parentActivityName=".CourseModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.CourseModeActivity" />
+        </activity>
+        <activity
+            android:name=".RecommendedClubActivity"
+            android:label="@string/title_activity_recommended_club"
+            android:parentActivityName=".CourseModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.CourseModeActivity" />
+        </activity>
     </application>
 
 </manifest>

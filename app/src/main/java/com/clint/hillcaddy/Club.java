@@ -6,7 +6,7 @@ package com.clint.hillcaddy;
 public class Club
 {
     private String name;
-    private Shot medianShot;
+    private Shot averageShot;
     private Integer averageDistance;
 
     public Club()
@@ -28,6 +28,30 @@ public class Club
     {
         return name;
     }
+
+    public void setAverageShot(Shot avgShot)
+    {
+        averageShot = avgShot;
+    }
+
+    public Shot getAverageShot()
+    {
+        return averageShot;
+    }
+
+    public void setAverageDistance(Integer dist)
+    {
+        averageDistance = dist;
+    }
+
+    public Integer getAverageDistance()
+    {
+        return averageDistance;
+
+    }
+
+
+
 
 
 }

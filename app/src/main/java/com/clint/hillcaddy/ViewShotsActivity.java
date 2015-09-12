@@ -65,7 +65,8 @@ public class ViewShotsActivity extends AppCompatActivity {
         String selectedClub = clubSpinner.getSelectedItem().toString();
 
         DatabaseHelper db = globals.getDB();
-        String currentUser = globals.getCurrentProfileName();
+        Profile profile = globals.getCurrentProfile();
+        String currentUser = profile.getName();
 
         List<String> shots = db.getShotsAsStringsWithLabels(currentUser, selectedClub);
 
@@ -96,7 +97,8 @@ public class ViewShotsActivity extends AppCompatActivity {
             Shot selectedShot = parseShotLabels(selectedItem);
 
             DatabaseHelper db = globals.getDB();
-            String currentUser = globals.getCurrentProfileName();
+            Profile profile = globals.getCurrentProfile();
+            String currentUser = profile.getName();
 
             Spinner clubSpinner = (Spinner) findViewById(R.id.selClub_viewShots_Spinner);
             String currentClubName = clubSpinner.getSelectedItem().toString();
@@ -117,13 +119,7 @@ public class ViewShotsActivity extends AppCompatActivity {
         shotWithLabels = shotWithLabels.replaceAll("Launch Angle: ", "");
         shotWithLabels = shotWithLabels.replaceAll("  ", " ");
 
-        Log.v("shotWithLabels", shotWithLabels);
-
         String[] values = shotWithLabels.split(" ");
-
-        Log.v("values0", values[0]);
-        Log.v("values1", values[1]);
-        Log.v("values2", values[2]);
 
         Double speed = Double.parseDouble(values[0].trim());
         Integer spin = Integer.parseInt(values[1].trim());

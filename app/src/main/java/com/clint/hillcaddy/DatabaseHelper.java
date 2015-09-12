@@ -307,4 +307,28 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
+    public List<Shot> getShotList(String club, String user)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String command = "SELECT "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        List<Shot> list = new ArrayList<Shot>();
+        if(cursor.moveToFirst()) {
+            do {
+                list.add(new Shot(cursor.getDouble(0), cursor.getInt(1), cursor.getDouble(2)));
+            }while(cursor.moveToNext());
+
+        }
+        else
+        {
+            //no shots for this club, make a single entry of 0s
+            list.add(new Shot(0.0, 0, 0.0));
+        }
+        cursor.close();
+        db.close();
+        return list;
+
+    }
+
 }
