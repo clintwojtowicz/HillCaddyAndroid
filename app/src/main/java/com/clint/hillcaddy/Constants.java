@@ -10,10 +10,10 @@ public class Constants
     public static final Double GRAVITY = 9.8;
     public static final Double PI = 3.1417;
     public static final Double C_DRAG = .38;
-    public static final Double C_LIFT = .34;
+    public static final Double C_LIFT = .000018;
     public static final Double dSpin_dt = .1;
 
-    public Double roAir = 1.0;      //ro is a variable based on elevation
+    public static final Double roAirSeaLvl = 1.0;
 
 
 

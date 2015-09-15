@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final String KEY_CLUBNAME = "clubName";
     private static final String KEY_BALLSPEED = "ballspeed";
     private static final String KEY_BACKSPIN = "backspin";
+    private static final String KEY_SIDESPIN = "sidespin";
     private static final String KEY_ANGLE = "launchAngle";
 
 
@@ -80,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void createShotTable(String user, SQLiteDatabase db)
     {
-        String cmd = "CREATE TABLE IF NOT EXISTS "+user+"_shots("+KEY_CLUBNAME+" VARCHAR, "+KEY_BALLSPEED+" DOUBLE, "+KEY_BACKSPIN+" INTEGER, "+KEY_ANGLE+" DOUBLE);";
+        String cmd = "CREATE TABLE IF NOT EXISTS "+user+"_shots("+KEY_CLUBNAME+" VARCHAR, "+KEY_BALLSPEED+" DOUBLE, "+KEY_BACKSPIN+" INTEGER, "+KEY_SIDESPIN+" INTEGER, "+KEY_ANGLE+" DOUBLE);";
         db.execSQL(cmd);
 
     }
@@ -136,6 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PROFILES, KEY_NAME + " = ?", new String[] {user});
         removeShotTable(user, db);
+        removeClubTable(user, db);
 
         db.close();
 
@@ -143,7 +145,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void removeShotTable(String user, SQLiteDatabase db)
     {
-        db.execSQL("DROP TABLE IF EXISTS " + user);
+        db.execSQL("DROP TABLE IF EXISTS " + user + "_shots");
+
+    }
+
+    public void removeClubTable(String user, SQLiteDatabase db)
+    {
+        db.execSQL("DROP TABLE IF EXISTS " + user + "_clubs");
 
     }
 
@@ -155,6 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         values.put(KEY_CLUBNAME, club);
         values.put(KEY_BALLSPEED, newShot.getBallSpeed());
         values.put(KEY_BACKSPIN, newShot.getBackSpin());
+        values.put(KEY_SIDESPIN, newShot.getSideSpin());
         values.put(KEY_ANGLE, newShot.getLaunchAngle());
 
         db.insert(user+"_shots", null, values);
@@ -279,14 +288,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public List<String> getShotsAsStringsWithLabels(String user, String club)
     {
         SQLiteDatabase db = getReadableDatabase();
-        String command = "SELECT "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
+        String command = "SELECT "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_SIDESPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
         Cursor cursor = db.rawQuery(command, null);
 
         List<String> list = new ArrayList<String>();
         String temp;
         if(cursor.moveToFirst()) {
             do {
-                temp = "Ball Speed: "+ cursor.getString(0) + " Back Spin: "+ cursor.getString(1) + " Launch Angle: "+ cursor.getString(2);
+                temp = "Ball Speed: "+ cursor.getString(0) + " Back Spin: "+ cursor.getString(1) + " Side Spin: "+ cursor.getString(2) + " Launch Angle: "+ cursor.getString(3);
                 list.add(temp);
             }while(cursor.moveToNext());
 
@@ -302,7 +311,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = getWritableDatabase();
         String command = "DELETE FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' AND "+KEY_BALLSPEED+"= "+shot.getBallSpeed()+" AND "
-                +KEY_BACKSPIN+"= "+shot.getBackSpin()+" AND "+KEY_ANGLE+"= "+shot.getLaunchAngle()+";";
+                +KEY_BACKSPIN+"= "+shot.getBackSpin()+" AND "+KEY_SIDESPIN+"= "+shot.getSideSpin()+" AND "+KEY_ANGLE+"= "+shot.getLaunchAngle()+";";
         db.execSQL(command);
         db.close();
     }
@@ -310,20 +319,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public List<Shot> getShotList(String club, String user)
     {
         SQLiteDatabase db = getReadableDatabase();
-        String command = "SELECT "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
+        String command = "SELECT "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_SIDESPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
         Cursor cursor = db.rawQuery(command, null);
 
         List<Shot> list = new ArrayList<Shot>();
         if(cursor.moveToFirst()) {
             do {
-                list.add(new Shot(cursor.getDouble(0), cursor.getInt(1), cursor.getDouble(2)));
+                list.add(new Shot(cursor.getDouble(0), cursor.getInt(1), cursor.getInt(2), cursor.getDouble(3)));
             }while(cursor.moveToNext());
 
         }
         else
         {
             //no shots for this club, make a single entry of 0s
-            list.add(new Shot(0.0, 0, 0.0));
+            list.add(new Shot(0.0, 0, 0, 0.0));
         }
         cursor.close();
         db.close();

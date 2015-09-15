@@ -53,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
         Spinner profSpinner = (Spinner)findViewById(R.id.selProf_Spinner);
         String selectedProf = profSpinner.getSelectedItem().toString();
 
-        globals.setCurrentProfileWithName(selectedProf);
+        if (selectedProf != null)
+        {
+            globals.setCurrentProfileWithName(selectedProf);
 
-        //show Select Mode activity
-        Intent intent = new Intent(this,SelectModeActivity.class);
-        startActivity(intent);
+            //show Select Mode activity
+            Intent intent = new Intent(this,SelectModeActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void showCreateProfileView(View view)

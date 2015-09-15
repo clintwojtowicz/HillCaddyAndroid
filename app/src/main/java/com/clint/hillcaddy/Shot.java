@@ -7,14 +7,16 @@ public class Shot
 {
     private Double ballSpeed;
     private Integer backSpin;
+    private Integer sideSpin;
     private Double launchAngle;
 
     private Integer distance;
 
-    public Shot(Double _ballSpeed, Integer _backSpin, Double _launchAngle)
+    public Shot(Double _ballSpeed, Integer _backSpin, Integer _sideSpin, Double _launchAngle)
     {
         ballSpeed = _ballSpeed;
         backSpin = _backSpin;
+        sideSpin = _sideSpin;
         launchAngle = _launchAngle;
 
     }
@@ -28,6 +30,8 @@ public class Shot
     {
         backSpin = bs;
     }
+
+    public void setSideSpin(Integer ss) { sideSpin = ss; }
 
     public void setLaunchAngle(Double la)
     {
@@ -44,16 +48,20 @@ public class Shot
         return backSpin;
     }
 
+    public Integer getSideSpin() { return sideSpin; }
+
     public Double getLaunchAngle()
     {
         return launchAngle;
     }
 
-    public void calculateDistance()
+    public Integer calculateDistance(Integer elevationChange)
     {
 
 
 
+
+        return 0;
     }
 
 }

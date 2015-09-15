@@ -52,6 +52,7 @@ public class RangeModeActivity extends AppCompatActivity {
     {
         Double ballSpeed = 0.0;
         Integer backSpin = 0;
+        Integer sideSpin = 0;
         Double launchAngle = 0.0;
 
         boolean valid = true;
@@ -61,6 +62,9 @@ public class RangeModeActivity extends AppCompatActivity {
 
             EditText spinEditText = (EditText) findViewById(R.id.backSpin_range_editText);
             backSpin = Integer.parseInt(spinEditText.getText().toString());
+
+            EditText sideSpinEditText = (EditText) findViewById(R.id.sideSpin_range_editText);
+            backSpin = Integer.parseInt(sideSpinEditText.getText().toString());
 
             EditText angleEditText = (EditText) findViewById(R.id.launchAngle_range_editText);
             launchAngle = Double.parseDouble(angleEditText.getText().toString());
@@ -73,7 +77,7 @@ public class RangeModeActivity extends AppCompatActivity {
         }
         if(valid)
         {
-            Shot shot = new Shot(ballSpeed, backSpin, launchAngle);
+            Shot shot = new Shot(ballSpeed, backSpin, sideSpin, launchAngle);
 
             //send shot data to db
             DatabaseHelper db = globals.getDB();
@@ -83,6 +87,8 @@ public class RangeModeActivity extends AppCompatActivity {
             String clubUsed = clubSpinner.getSelectedItem().toString();
 
             db.addShot(currentProf, clubUsed, shot);
+
+            this.clearShotTextEdits();
         }
 
     }
@@ -127,6 +133,23 @@ public class RangeModeActivity extends AppCompatActivity {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, clubNames);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
+
+    }
+
+    public void clearShotTextEdits()
+    {
+        EditText speedEditText = (EditText) findViewById(R.id.ballSpeed_range_editText);
+        speedEditText.getText().clear();
+
+        EditText spinEditText = (EditText) findViewById(R.id.backSpin_range_editText);
+        spinEditText.getText().clear();
+
+        EditText sideSpinEditText = (EditText) findViewById(R.id.sideSpin_range_editText);
+        sideSpinEditText.getText().clear();
+
+        EditText angleEditText = (EditText) findViewById(R.id.launchAngle_range_editText);
+        angleEditText.getText().clear();
+
 
     }
 

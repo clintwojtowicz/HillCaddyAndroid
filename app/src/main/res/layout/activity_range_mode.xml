@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/range_sel_club"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
         android:textSize = "18dp"/>
 
     <Spinner
         android:id="@+id/selClub_range_Spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
+        android:paddingBottom="0dp"
         >
     </Spinner>
 
@@ -55,6 +55,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id= "@+id/backSpin_range_editText"
+        android:inputType="number"
+        android:maxLength="5"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/side_spin_text"
+        android:textSize="14sp"
+        android:paddingBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id= "@+id/sideSpin_range_editText"
         android:inputType="number"
         android:maxLength="5"
         android:paddingBottom="10dp"/>

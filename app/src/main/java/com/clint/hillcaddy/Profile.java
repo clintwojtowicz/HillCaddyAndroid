@@ -78,7 +78,7 @@ public class Profile
 
             //set average shot and average distance for each club
             currentClub.setAverageShot(avgShot);
-            currentClub.setAverageDistance(ShotCalculator.calculateDistance(avgShot, 0));
+            currentClub.setAverageDistance(avgShot.calculateDistance(0));
 
             bag.set(currentIndex, currentClub);
 
@@ -92,11 +92,12 @@ public class Profile
     {
         if (shots.isEmpty())
         {
-            return new Shot(0.0, 0, 0.0);
+            return new Shot(0.0, 0, 0, 0.0);
         }
         Iterator<Shot> iterator = shots.iterator();
         Double speedSum = 0.0;
         Integer spinSum = 0;
+        Integer sideSpinSum = 0;
         Double angleSum = 0.0;
         Integer count = 0;
 
@@ -106,15 +107,17 @@ public class Profile
 
             speedSum += tempShot.getBallSpeed();
             spinSum += tempShot.getBackSpin();
+            sideSpinSum += tempShot.getSideSpin();
             angleSum += tempShot.getLaunchAngle();
             count++;
         }
 
         Double avgSpeed = speedSum / count;
         Integer avgSpin = spinSum / count;
+        Integer avgSideSpin = sideSpinSum / count;
         Double avgAngle = angleSum / count;
 
-        return new Shot(avgSpeed, avgSpin, avgAngle);
+        return new Shot(avgSpeed, avgSpin, avgSideSpin, avgAngle);
 
 
 

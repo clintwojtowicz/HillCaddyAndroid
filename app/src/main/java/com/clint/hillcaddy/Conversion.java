@@ -5,44 +5,44 @@ package com.clint.hillcaddy;
  */
 public class Conversion
 {
-    public Double mphToMs(Float mph)
+    public static Double mphToMs(Double mph)
     {
         return mph * .44704;
     }
 
-    public Double msToMph(Double ms)
+    public static Double msToMph(Double ms)
     {
         return ms / .44704;
     }
 
-    public Double yardToMeter(Double yd)
+    public static Double yardToMeter(Double yd)
     {
         return yd * .9144;
     }
 
-    public Double meterToYard(Double m)
+    public static Double meterToYard(Double m)
     {
         return m / .9144;
     }
 
-    public Double degreesToRadians(Double deg)
+    public static Double degreesToRadians(Double deg)
     {
         return deg * Constants.PI / 180.0;
     }
 
-    public Double radiansToDegrees(Double rad)
+    public static Double radiansToDegrees(Double rad)
     {
         return rad * 180.0 / Constants.PI;
     }
 
-    public Double rpmToRadps(Double rpm)
+    public static Double rpmToRadps(Double rpm)
     {
-        return rpm * Constants.PI / 30;
+        return rpm * Constants.PI / 30.0;
     }
 
-    public Double radpsToRpm(Double radps)
+    public static Double radpsToRpm(Double radps)
     {
-        return radps * 30 / Constants.PI;
+        return radps * 30.0 / Constants.PI;
     }
 
 
