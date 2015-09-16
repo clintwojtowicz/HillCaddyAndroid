@@ -13,7 +13,7 @@ public class ShotCalculator
     public static final Double GRAVITY = 9.8;
     public static final Double PI = 3.1417;
     public static final Double C_DRAG = .38;
-    public static final Double C_LIFT = .34;
+    public static final Double C_LIFT = .0000075;
     public static final Double dSpin_dt = .1;
 
     public static final Double roAirSeaLvl = 1.0;
@@ -53,7 +53,7 @@ public class ShotCalculator
         Vector3D magnusAccel = new Vector3D();
 
         //check to see if ball has reached its desired elevation and is traveling downwards (i.e. velocity.z is negative)
-        while((pos.z > elevationDiff) && velocity.z < 0)
+        while(((pos.z > elevationDiff) && velocity.z < 0) || velocity.z >= 0)
         {
             pos.x = pos.x + velocity.x * dt;
             pos.y = pos.y + velocity.y * dt;
@@ -72,7 +72,8 @@ public class ShotCalculator
             velocity.y = velocity.y + accel.y * dt;
             velocity.z = velocity.z + accel.z * dt;
 
-            spin = decreaseSpin(spin, dt);
+            //this needs to be implemented. For now, just let it stay constant
+            //spin = decreaseSpin(spin, dt);
 
             Cd = getDragCoef(velocity.magnitude());
             Cl = getLiftCoef(velocity.magnitude());

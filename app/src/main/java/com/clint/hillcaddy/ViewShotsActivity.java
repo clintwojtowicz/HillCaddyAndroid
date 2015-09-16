@@ -116,6 +116,7 @@ public class ViewShotsActivity extends AppCompatActivity {
 
         shotWithLabels = shotWithLabels.replaceAll("Ball Speed: ", "");
         shotWithLabels = shotWithLabels.replaceAll("Back Spin: ", "");
+        shotWithLabels = shotWithLabels.replaceAll("Side Spin: ", "");
         shotWithLabels = shotWithLabels.replaceAll("Launch Angle: ", "");
         shotWithLabels = shotWithLabels.replaceAll("  ", " ");
 
@@ -123,9 +124,10 @@ public class ViewShotsActivity extends AppCompatActivity {
 
         Double speed = Double.parseDouble(values[0].trim());
         Integer spin = Integer.parseInt(values[1].trim());
-        Double angle = Double.parseDouble(values[2].trim());
+        Integer sideSpin = Integer.parseInt(values[2].trim());
+        Double angle = Double.parseDouble(values[3].trim());
 
-        Shot shot = new Shot(speed, spin, angle);
+        Shot shot = new Shot(speed, spin, sideSpin, angle);
         return shot;
 
     }

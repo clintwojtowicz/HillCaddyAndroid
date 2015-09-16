@@ -70,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id= "@+id/sideSpin_range_editText"
-        android:inputType="number"
+        android:inputType="numberSigned"
         android:maxLength="5"
         android:paddingBottom="10dp"/>
 

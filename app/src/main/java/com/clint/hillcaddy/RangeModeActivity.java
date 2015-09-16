@@ -64,7 +64,7 @@ public class RangeModeActivity extends AppCompatActivity {
             backSpin = Integer.parseInt(spinEditText.getText().toString());
 
             EditText sideSpinEditText = (EditText) findViewById(R.id.sideSpin_range_editText);
-            backSpin = Integer.parseInt(sideSpinEditText.getText().toString());
+            sideSpin = Integer.parseInt(sideSpinEditText.getText().toString());
 
             EditText angleEditText = (EditText) findViewById(R.id.launchAngle_range_editText);
             launchAngle = Double.parseDouble(angleEditText.getText().toString());

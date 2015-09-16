@@ -78,7 +78,7 @@ public class Profile
 
             //set average shot and average distance for each club
             currentClub.setAverageShot(avgShot);
-            currentClub.setAverageDistance(avgShot.calculateDistance(0));
+            currentClub.setAverageDistance(ShotCalculator.calculateDistance(avgShot, 0));
 
             bag.set(currentIndex, currentClub);
 
@@ -133,7 +133,7 @@ public class Profile
         while(iterator.hasNext())
         {
             Club tempClub = iterator.next();
-            temp = tempClub.getName() + "    " + tempClub.getAverageDistance().toString();
+            temp = tempClub.getName() + "       " + tempClub.getAverageDistance().toString();
             distanceList.add(temp);
 
         }
@@ -147,7 +147,7 @@ public class Profile
         Collections.sort(bag, new Comparator<Club>() {
             @Override
             public int compare(Club c1, Club c2) {
-                return c1.getAverageDistance() - c2.getAverageDistance(); //ascending order
+                return c2.getAverageDistance() - c1.getAverageDistance(); //descending order
             }
 
         });
