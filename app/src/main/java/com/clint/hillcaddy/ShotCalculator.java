@@ -11,12 +11,15 @@ public class ShotCalculator
     public static final Double MASS_GB = .04593;
     public static final Double DIAMETER_GB = .0427;
     public static final Double GRAVITY = 9.8;
-    public static final Double PI = 3.1417;
-    public static final Double C_DRAG = .38;
-    public static final Double C_LIFT = .0000075;
-    public static final Double dSpin_dt = .1;
+    public static final Double PI = 3.141592;
+    public static final Double C_DRAG_INITIAL = .20;
+    public static final Double SPIN_WEIGHT = .00004;
+    public static final Double C_LIFT = .0000225;
+    public static final Double dS_SCALE = 1.02;
+    public static final Double dS_COEF = .0001;
 
-    public static final Double roAirSeaLvl = 1.0;
+
+    public static final Double roAirSeaLvl = 1.2;
      */
 
     /*
@@ -38,8 +41,8 @@ public class ShotCalculator
         Double backSpin = Conversion.rpmToRadps(shot.getBackSpin() * 1.0);
         Double sideSpin = Conversion.rpmToRadps(shot.getSideSpin() * 1.0);
 
-        Double Cd = getDragCoef(speed);
-        Double Cl = getLiftCoef(speed);
+        Double Cd;
+        Double Cl = Constants.C_LIFT;
 
         //this is used to reduce the redundant amount of math done in the while loop to improve efficiency
         Double dragConstants = .5 * area * ro / Constants.MASS_GB;
@@ -59,6 +62,8 @@ public class ShotCalculator
             pos.y = pos.y + velocity.y * dt;
             pos.z = pos.z + velocity.z * dt;
 
+            Cd = getDragCoef(spin.magnitude());     //drag increases with spin due to turbulence
+
             // magnus accel = spin coefficient * (spin X velocity) / Mass
             magnusAccel.x = Cl * (spin.y * velocity.z - spin.z * velocity.y) / Constants.MASS_GB;
             magnusAccel.y = Cl * -(spin.x * velocity.z - spin.z * velocity.x)/ Constants.MASS_GB;
@@ -72,29 +77,15 @@ public class ShotCalculator
             velocity.y = velocity.y + accel.y * dt;
             velocity.z = velocity.z + accel.z * dt;
 
-            //this needs to be implemented. For now, just let it stay constant
-            //spin = decreaseSpin(spin, dt);
-
-            Cd = getDragCoef(velocity.magnitude());
-            Cl = getLiftCoef(velocity.magnitude());
-
+            spin = decreaseSpin(spin, dt);
         }
 
         return (int)Math.round(pos.y);
     }
 
-    private static Double getDragCoef(Double speed)
+    private static Double getDragCoef(Double spin)
     {
-        //TODO: this needs to be a function of speed
-
-        return Constants.C_DRAG;
-    }
-
-    private static Double getLiftCoef(Double speed)
-    {
-        //TODO: make this a function of speed
-
-        return Constants.C_LIFT;
+        return Constants.C_DRAG_INITIAL + (Conversion.radpsToRpm(spin) * Constants.SPIN_WEIGHT);
     }
 
     private static Double getRoFromElevation(Integer elevation)
@@ -112,11 +103,10 @@ public class ShotCalculator
 
     private static Vector3D decreaseSpin(Vector3D spin, Double dt)
     {
-        Double deltaS = Constants.dSpin_dt * dt;
-
-        if (spin.x != 0.0) spin.x = spin.x - deltaS;
-        if (spin.y != 0.0) spin.y = spin.y - deltaS;
-        if (spin.z != 0.0) spin.z = spin.z - deltaS;
+        //use exponential expression to decrease spin based on how much the ball is already spinning instead of linear expression
+        spin.x = spin.x - ((Constants.dS_SCALE * Math.exp(Constants.dS_COEF * spin.x) - 1) * spin.x) * dt;
+        spin.y = spin.y - ((Constants.dS_SCALE * Math.exp(Constants.dS_COEF * spin.y) - 1) * spin.y) * dt;
+        spin.z = spin.z - ((Constants.dS_SCALE * Math.exp(Constants.dS_COEF * spin.z) - 1) * spin.z) * dt;
 
         return spin;
     }

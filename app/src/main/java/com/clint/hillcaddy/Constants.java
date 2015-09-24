@@ -8,12 +8,15 @@ public class Constants
     public static final Double MASS_GB = .04593;
     public static final Double DIAMETER_GB = .0427;
     public static final Double GRAVITY = 9.8;
-    public static final Double PI = 3.1417;
-    public static final Double C_DRAG = .38;
-    public static final Double C_LIFT = .0000075;
-    public static final Double dSpin_dt = .1;
+    public static final Double PI = 3.141592;
+    public static final Double C_DRAG_INITIAL = .20;
+    public static final Double SPIN_WEIGHT = .00004;
+    public static final Double C_LIFT = .0000225;
+    public static final Double dS_SCALE = 1.02;
+    public static final Double dS_COEF = .0001;
 
-    public static final Double roAirSeaLvl = 1.0;
+
+    public static final Double roAirSeaLvl = 1.2;
 
 
 
