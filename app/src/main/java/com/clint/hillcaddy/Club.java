@@ -7,7 +7,7 @@ public class Club
 {
     private String name;
     private Shot averageShot;
-    private Integer averageDistance;
+    private Integer averageDistance;  //in meters
 
     public Club()
     {

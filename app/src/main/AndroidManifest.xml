@@ -81,6 +81,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clint.hillcaddy.CourseModeActivity" />
         </activity>
+        <activity
+            android:name=".AngleCaptureActivity"
+            android:label="@string/title_activity_angle_capture"
+            android:parentActivityName=".RecommendedClubActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.RecommendedClubActivity" />
+        </activity>
     </application>
 
 </manifest>

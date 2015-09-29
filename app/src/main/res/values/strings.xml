@@ -49,11 +49,23 @@
 
     //Course Mode Activity
     <string name="viewDistanceCard_course_button">View Club Distance Card</string>
-    <string name="calcClub_course_button">Get Club Recommendation</string>
+    <string name="calcClub_course_button">Launch Club Calculator</string>
     <string name="title_activity_distance_card">Distance Card</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_recommended_club">Recommended Club</string>
+    //Recommended club Activity
+    <string name="title_activity_recommended_club">Club Calculator</string>
+    <string name="distance_recommendClub_text">Straight Line Distance to Target (yds)</string>
+    <string name="angle_recommendClub_text">Angle to Target (deg)</string>
+    <string name="angleDesc_recommendClub_text">*note: - for downhill, + for uphill</string>
+    <string name="angleCapt_recommendClub_button">Auto Capture Angle w/ Phone</string>
+    <string name="calcClub_recommendClub_button">Calculate Best Clubs</string>
+
+
+
+    <string name="title_activity_angle_capture">Angle Capture</string>
+    <string name="capture_angleCapture_button">Press to Capture Angle</string>
+
+
 
 
 

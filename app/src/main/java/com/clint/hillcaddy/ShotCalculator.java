@@ -111,6 +111,22 @@ public class ShotCalculator
         return spin;
     }
 
+    public static Integer getLandingHeight(Double angleToTargDeg, Integer distanceToTarg)
+    {
+        //note: distanceToTarg is the hypotenuse of the triangle, it should be the straight line distance given by laser range finder
+        Long result = Math.round(distanceToTarg * Math.sin(Conversion.degreesToRadians(angleToTargDeg)));
+        return result.intValue();
+
+    }
+
+    public static Integer getDistance(Double angleToTargDeg, Integer distanceToTarg)
+    {
+        //note: distanceToTarg is the hypotenuse of the triangle, it should be the straight line distance given by laser range finder
+        Long result = Math.round(distanceToTarg * Math.cos(Conversion.degreesToRadians(angleToTargDeg)));
+        return result.intValue();
+
+    }
+
 
 
 

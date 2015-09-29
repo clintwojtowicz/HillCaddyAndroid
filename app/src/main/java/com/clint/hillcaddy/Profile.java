@@ -133,7 +133,9 @@ public class Profile
         while(iterator.hasNext())
         {
             Club tempClub = iterator.next();
-            temp = tempClub.getName() + "       " + tempClub.getAverageDistance().toString();
+            //show distance in yards
+            Long distanceYards =  Math.round(Conversion.meterToYard((double)tempClub.getAverageDistance()));
+            temp = tempClub.getName() + "            " + distanceYards.toString();
             distanceList.add(temp);
 
         }
@@ -152,6 +154,28 @@ public class Profile
 
         });
 
+    }
+
+    public List<String> getAllDistancesFromTargetAsStrings(Integer Ydist, Integer Zdist)
+    {
+        Iterator<Club> iterator = bag.iterator();
+
+        List<String> distanceList = new ArrayList<String>();
+        String temp = "";
+
+        while(iterator.hasNext())
+        {
+            Club tempClub = iterator.next();
+            //show distance in yards
+            Long distanceYards =  Math.round(Conversion.meterToYard((double)ShotCalculator.calculateDistance(tempClub.getAverageShot(), Zdist)));
+            Integer distanceFromTarg = distanceYards.intValue() - Ydist;
+            temp = tempClub.getName() + "            " + distanceFromTarg.toString();
+            distanceList.add(temp);
+
+        }
+
+
+        return distanceList;
     }
 
 
