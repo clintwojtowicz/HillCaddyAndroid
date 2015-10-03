@@ -58,15 +58,6 @@
         android:text="@string/calcClub_recommendClub_button"
         android:onClick="calculateBestClub"/>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/distanceToTarg_listView"
-        >
-
-
-    </ListView>
-
 
 
 </LinearLayout>

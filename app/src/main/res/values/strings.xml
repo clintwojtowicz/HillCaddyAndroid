@@ -64,6 +64,9 @@
 
     <string name="title_activity_angle_capture">Angle Capture</string>
     <string name="capture_angleCapture_button">Press to Capture Angle</string>
+    <string name="title_activity_club_result">Club Results</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 

@@ -18,6 +18,9 @@ import java.util.List;
 
 public class RecommendedClubActivity extends AppCompatActivity {
 
+    public final static String EXTRA_YDIST = "com.clint.hillcaddy.Y_DISTANCE";
+    public final static String EXTRA_ZDIST = "com.clint.hillcaddy.Z_DISTANCE";
+
     GlobalVars globals;
 
     @Override
@@ -93,11 +96,13 @@ public class RecommendedClubActivity extends AppCompatActivity {
             Integer Ydist = ShotCalculator.getDistance(angleToTarg, straightLineDist);
             Integer Zdist = ShotCalculator.getLandingHeight(angleToTarg, straightLineDist);
 
-            List<String> distances = profile.getAllDistancesFromTargetAsStrings(Ydist, Zdist);
-            ListView distancesView = (ListView)findViewById(R.id.distanceToTarg_listView);
-            ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, distances);
-            distancesView.setAdapter(listAdapter);
-            distancesView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+            Intent intent = new Intent(this, ClubResultActivity.class);
+            intent.putExtra(EXTRA_YDIST, Ydist);
+            intent.putExtra(EXTRA_ZDIST, Zdist);
+
+            startActivity(intent);
+
+
 
 
         }

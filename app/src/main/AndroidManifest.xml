@@ -89,6 +89,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clint.hillcaddy.RecommendedClubActivity" />
         </activity>
+        <activity
+            android:name=".ClubResultActivity"
+            android:label="@string/title_activity_club_result"
+            android:parentActivityName=".RecommendedClubActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddy.RecommendedClubActivity" />
+        </activity>
     </application>
 
 </manifest>

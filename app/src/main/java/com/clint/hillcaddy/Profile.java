@@ -123,23 +123,24 @@ public class Profile
 
     }
 
-    public List<String> getClubDistancesAsStrings()
+    public List<ShotResult> getClubDistances()
     {
         Iterator<Club> iterator = bag.iterator();
 
-        List<String> distanceList = new ArrayList<String>();
-        String temp = "";
+        List<ShotResult> distanceList = new ArrayList<ShotResult>();
+
 
         while(iterator.hasNext())
         {
             Club tempClub = iterator.next();
+            ShotResult shot = new ShotResult();
             //show distance in yards
             Long distanceYards =  Math.round(Conversion.meterToYard((double)tempClub.getAverageDistance()));
-            temp = tempClub.getName() + "            " + distanceYards.toString();
-            distanceList.add(temp);
+            shot.setClubName(tempClub.getName());
+            shot.setDistance(distanceYards.intValue());
+            distanceList.add(shot);
 
         }
-
 
         return distanceList;
     }
@@ -156,24 +157,24 @@ public class Profile
 
     }
 
-    public List<String> getAllDistancesFromTargetAsStrings(Integer Ydist, Integer Zdist)
+    public List<ShotResult> getAllDistancesFromTarget(Integer Ydist, Integer Zdist)
     {
         Iterator<Club> iterator = bag.iterator();
 
-        List<String> distanceList = new ArrayList<String>();
-        String temp = "";
+        List<ShotResult> distanceList = new ArrayList<ShotResult>();
+
 
         while(iterator.hasNext())
         {
             Club tempClub = iterator.next();
+            ShotResult shot = new ShotResult();
             //show distance in yards
             Long distanceYards =  Math.round(Conversion.meterToYard((double)ShotCalculator.calculateDistance(tempClub.getAverageShot(), Zdist)));
-            Integer distanceFromTarg = distanceYards.intValue() - Ydist;
-            temp = tempClub.getName() + "            " + distanceFromTarg.toString();
-            distanceList.add(temp);
+            shot.setClubName(tempClub.getName());
+            shot.setDistance(distanceYards.intValue() - Ydist);
+            distanceList.add(shot);
 
         }
-
 
         return distanceList;
     }
