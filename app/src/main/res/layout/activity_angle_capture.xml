@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/capture_angleCapture_button"
+        android:id="@+id/captureAngleButton"
         android:paddingTop="70dp"
         android:paddingBottom="70dp"
         android:onClick="captureAngle"/>

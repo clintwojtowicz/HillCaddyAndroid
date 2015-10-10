@@ -28,6 +28,9 @@ public class RecommendedClubActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommended_club);
         globals = ((GlobalVars)getApplicationContext());
+
+
+
     }
 
     @Override
@@ -51,7 +54,17 @@ public class RecommendedClubActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    protected void onResume() {
 
+        //see if an angle was captured, if it was show the captured angle
+        Intent intent = getIntent();
+        Integer angleCaptured = intent.getIntExtra(AngleCaptureActivity.EXTRA_THETA, 0);
+        EditText angleText = (EditText) findViewById(R.id.angle_recommendClub_editText);
+        angleText.setText(angleCaptured.toString());
+
+        super.onResume();
+    }
     public void showAngleCaptureView(View view)
     {
         Intent intent = new Intent(this, AngleCaptureActivity.class);
