@@ -22,11 +22,7 @@
         >
     </Spinner>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/addRemove_range_button"
-        android:onClick="addNewClub" />
+
 
     <TextView
         android:layout_width="match_parent"
@@ -100,6 +96,12 @@
         android:layout_height="wrap_content"
         android:text="@string/viewShots_range_button"
         android:onClick="viewShots"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/addRemove_range_button"
+        android:onClick="addNewClub" />
 
 
 

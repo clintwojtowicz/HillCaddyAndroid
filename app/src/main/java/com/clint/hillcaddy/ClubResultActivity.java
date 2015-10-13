@@ -111,7 +111,7 @@ public class ClubResultActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("HillCaddy Says...");
-        builder.setMessage("The closest club is your " + shot.getClubName() + " at " + shot.getDistance().toString() + " yds from the target");
+        builder.setMessage("The closest club is your " + shot.getClubName() + " at a carry distance of" + shot.getDistance().toString() + " yds from the target");
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){}

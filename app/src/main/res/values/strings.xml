@@ -3,13 +3,15 @@
 
 
     //Main Activity
-    <string name="sel_profile_text">Select Golfer Profile</string>
+    <string name="sel_profile_text">Select Profile</string>
     <string name="action_settings">Settings</string>
-    <string name="sel_prof_button">Load Golfer Profile</string>
-    <string name="create_prof_view_button">Create New Golfer Profile</string>
-    <string name="title_activity_create_profile">Create New Profile</string>
+    <string name="sel_prof_button">Load Selected Profile</string>
+    <string name="create_prof_view_button">Create New Profile</string>
 
-    //Create New com.clint.hillcaddy.Profile Activity
+
+
+    //Create New Profile Activity
+    <string name="title_activity_create_profile">Create New Profile</string>
     <string name="new_name_text">Name</string>
     <string name="create_prof_button">Create Profile</string>
     <string name="title_activity_select_mode">Select Mode</string>
@@ -25,7 +27,7 @@
 
     //Range Mode Activity
     <string name="title_activity_range_mode">Range Mode</string>
-    <string name="range_sel_club">Select Club</string>
+    <string name="range_sel_club">Select Club For Adding Shots</string>
     <string name="ball_speed_text">Ball Speed (mph)</string>
     <string name="back_spin_text">Back Spin (rpm)</string>
     <string name="side_spin_text">Side Spin (rpm)</string>
@@ -37,9 +39,9 @@
 
     //Add Club Activity
     <string name="title_activity_add_club">Edit Bag</string>
-    <string name="new_club_name_text">New Club Name</string>
+    <string name="new_club_name_text">Type New Club Name Here</string>
     <string name="addClub_editBag_button">Add New Club</string>
-    <string name="remove_club_name_text">Select Club to Remove</string>
+    <string name="remove_club_name_text">Select Club to Remove From Dropdown</string>
     <string name="remove_club_button">Remove Club</string>
 
     //View Shots Activity
@@ -54,19 +56,20 @@
 
     //Recommended club Activity
     <string name="title_activity_recommended_club">Club Calculator</string>
+    <string name="instructions_recommendClub_text">Instructions:
+        \n\n-Manually enter the angle to target or press "Auto Capture Angle w/ Phone" to use the device's hardware to get the angle to the target.
+        \n\n-Enter the distance to the target as measured by a laser range finder and press "Calculate Best Club".</string>
     <string name="distance_recommendClub_text">Straight Line Distance to Target (yds)</string>
     <string name="angle_recommendClub_text">Angle to Target (deg)</string>
     <string name="angleDesc_recommendClub_text">*note: - for downhill, + for uphill</string>
     <string name="angleCapt_recommendClub_button">Auto Capture Angle w/ Phone</string>
-    <string name="calcClub_recommendClub_button">Calculate Best Clubs</string>
+    <string name="calcClub_recommendClub_button">Calculate Best Club</string>
 
 
-
+    //Angle Capture Activity
     <string name="title_activity_angle_capture">Angle Capture</string>
     <string name="capture_angleCapture_button">Press to Capture Angle</string>
     <string name="title_activity_club_result">Club Results</string>
-
-    <string name="hello_world">Hello world!</string>
 
 
 
