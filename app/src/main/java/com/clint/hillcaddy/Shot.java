@@ -21,6 +21,15 @@ public class Shot
 
     }
 
+    public Shot(String _ballSpeed, String _backSpin, String _sideSpin, String _launchAngle)
+    {
+        ballSpeed = Double.parseDouble(_ballSpeed);
+        backSpin = Integer.parseInt(_backSpin);
+        sideSpin = Integer.parseInt(_sideSpin);
+        launchAngle = Double.parseDouble(_launchAngle);
+
+    }
+
     public void setBallSpeed(Double bs)
     {
         ballSpeed = bs;

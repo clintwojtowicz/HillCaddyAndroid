@@ -295,7 +295,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         String temp;
         if(cursor.moveToFirst()) {
             do {
-                temp = "Ball Speed: "+ cursor.getString(0) + " Back Spin: "+ cursor.getString(1) + " Side Spin: "+ cursor.getString(2) + " Launch Angle: "+ cursor.getString(3);
+                temp = "Ball Speed: "+ cursor.getString(0) + " Launch Angle: "+ cursor.getString(3) + "\nSide Spin: "+ cursor.getString(2) + " Back Spin: "+ cursor.getString(1);
                 list.add(temp);
             }while(cursor.moveToNext());
 
@@ -304,6 +304,24 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
         return list;
 
+    }
+
+    public List<Shot> getShots(String user, String club)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        String command = "SELECT "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_SIDESPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        List<Shot> list = new ArrayList<Shot>();
+        if(cursor.moveToFirst()) {
+            do {
+                list.add(new Shot(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+            }while(cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        return list;
 
     }
 

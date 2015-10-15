@@ -27,7 +27,7 @@
 
     //Range Mode Activity
     <string name="title_activity_range_mode">Range Mode</string>
-    <string name="range_sel_club">Select Club For Adding Shots</string>
+    <string name="range_sel_club">Select Club</string>
     <string name="ball_speed_text">Ball Speed (mph)</string>
     <string name="back_spin_text">Back Spin (rpm)</string>
     <string name="side_spin_text">Side Spin (rpm)</string>
@@ -57,8 +57,8 @@
     //Recommended club Activity
     <string name="title_activity_recommended_club">Club Calculator</string>
     <string name="instructions_recommendClub_text">Instructions:
-        \n\n-Manually enter the angle to target or press "Auto Capture Angle w/ Phone" to use the device's hardware to get the angle to the target.
-        \n\n-Enter the distance to the target as measured by a laser range finder and press "Calculate Best Club".</string>
+        \n\n-Manually enter the angle to target or press \"Auto Capture Angle w/ Phone\" to use the device\'s hardware to get the angle to the target.
+        \n\n-Enter the distance to the target as measured by a laser range finder and press \"Calculate Best Club\".</string>
     <string name="distance_recommendClub_text">Straight Line Distance to Target (yds)</string>
     <string name="angle_recommendClub_text">Angle to Target (deg)</string>
     <string name="angleDesc_recommendClub_text">*note: - for downhill, + for uphill</string>

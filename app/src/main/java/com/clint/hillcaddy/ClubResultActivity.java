@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -111,7 +112,13 @@ public class ClubResultActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("HillCaddy Says...");
-        builder.setMessage("The closest club is your " + shot.getClubName() + " at a carry distance of" + shot.getDistance().toString() + " yds from the target");
+        if (shot.getDistance() < 0) {
+            builder.setMessage("The closest club is your " + shot.getClubName() + ". It will land " + shot.getDistance().toString() + " yds short of the target");
+        }
+        else
+        {
+            builder.setMessage("The closest club is your " + shot.getClubName() + ". It will land " + shot.getDistance().toString() + " yds past the target");
+        }
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){}

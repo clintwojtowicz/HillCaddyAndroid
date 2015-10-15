@@ -24,26 +24,35 @@
         >
     </Spinner>
 
-    <Button
-        android:layout_width="match_parent"
+
+    <ScrollView
+        android:id="@+id/scrollViewShots"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/viewShots_viewShots_button"
-        android:onClick="showShots" />
+        android:layout_alignParentLeft="true" >
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/removeShot_viewShots_button"
-        android:onClick="removeSelectedShot" />
+        <HorizontalScrollView
+            android:id="@+id/hscrlshots"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/shots_listView"
-        >
+            <RelativeLayout
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
 
+                <TableLayout
+                    android:id="@+id/shots_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true" >
+                </TableLayout>
 
-    </ListView>
+            </RelativeLayout>
+        </HorizontalScrollView>
+    </ScrollView>
 
 
 

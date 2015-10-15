@@ -1,28 +1,46 @@
 package com.clint.hillcaddy;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.Iterator;
 import java.util.List;
 
 public class ViewShotsActivity extends AppCompatActivity {
 
     GlobalVars globals;
+    Spinner clubsSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_shots);
         globals = ((GlobalVars)getApplicationContext());
+        //force the screen to be in landscape orientation only
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        clubsSpinner = (Spinner)findViewById(R.id.selClub_viewShots_Spinner);
         updateClubsSpinner();
+        setSpinnerListener();
+
     }
 
     @Override
@@ -47,39 +65,132 @@ public class ViewShotsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     public void updateClubsSpinner()
     {
         Profile profile = globals.getCurrentProfile();
         ArrayList<String> clubNames = profile.getClubNameList();
 
-        Spinner spinner = (Spinner)findViewById(R.id.selClub_viewShots_Spinner);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, clubNames);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
+        clubsSpinner.setAdapter(spinnerAdapter);
 
     }
 
-    public void showShots(View view)
+    private void setSpinnerListener()
     {
-        Spinner clubSpinner = (Spinner)findViewById(R.id.selClub_viewShots_Spinner);
-        String selectedClub = clubSpinner.getSelectedItem().toString();
+        clubsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                showShots();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    public void showShots()
+    {
+        String selectedClub = clubsSpinner.getSelectedItem().toString();
 
         DatabaseHelper db = globals.getDB();
         Profile profile = globals.getCurrentProfile();
         String currentUser = profile.getName();
 
-        List<String> shots = db.getShotsAsStringsWithLabels(currentUser, selectedClub);
+        List<Shot> shots = db.getShots(currentUser, selectedClub);
 
-        ListView shotsView = (ListView)findViewById(R.id.shots_listView);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, shots);
-        shotsView.setAdapter(listAdapter);
-        shotsView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        TableLayout shotTable = (TableLayout) findViewById(R.id.shots_table);
+        shotTable.removeAllViews();
+
+        TableRow header = new TableRow(this);
+
+        TextView tv0 = new TextView(this);
+        tv0.setText("Speed (mph)  ");
+        tv0.setTextColor(Color.BLACK);
+        tv0.setTextSize(15);
+        header.addView(tv0);
+
+        TextView tv1 = new TextView(this);
+        tv1.setText("Launch Angle (deg)  ");
+        tv1.setTextColor(Color.BLACK);
+        tv1.setTextSize(15);
+        header.addView(tv1);
+
+        TextView tv2 = new TextView(this);
+        tv2.setText("Backspin (rpm)  ");
+        tv2.setTextColor(Color.BLACK);
+        tv2.setTextSize(15);
+        header.addView(tv2);
+
+        TextView tv3 = new TextView(this);
+        tv3.setText("Sidespin (rpm)");
+        tv3.setTextColor(Color.BLACK);
+        tv3.setTextSize(15);
+        header.addView(tv3);
+
+        shotTable.addView(header);
+
+        Iterator<Shot> iterator = shots.iterator();
+
+        while (iterator.hasNext()) {
+            Shot shot = iterator.next();
+
+            TableRow tbrow = new TableRow(this);
+
+            TextView t1v = new TextView(this);
+            t1v.setText(shot.getBallSpeed().toString());
+            t1v.setTextColor(Color.BLACK);
+            t1v.setGravity(Gravity.CENTER);
+            t1v.setTextSize(12);
+            tbrow.addView(t1v);
+
+            TextView t2v = new TextView(this);
+            t2v.setText(shot.getLaunchAngle().toString());
+            t2v.setTextColor(Color.BLACK);
+            t2v.setGravity(Gravity.CENTER);
+            t2v.setTextSize(12);
+            tbrow.addView(t2v);
+
+            TextView t3v = new TextView(this);
+            t3v.setText(shot.getBackSpin().toString());
+            t3v.setTextColor(Color.BLACK);
+            t3v.setGravity(Gravity.CENTER);
+            t3v.setTextSize(12);
+            tbrow.addView(t3v);
+
+            TextView t4v = new TextView(this);
+            t4v.setText(shot.getSideSpin().toString());
+            t4v.setTextColor(Color.BLACK);
+            t4v.setGravity(Gravity.CENTER);
+            t4v.setTextSize(12);
+            tbrow.addView(t4v);
+
+            Button button = new Button(this);
+            button.setText("Remove");
+            tbrow.addView(button);
+
+            shotTable.addView(tbrow);
+        }
 
     }
 
     public void removeSelectedShot(View view)
     {
-        ListView shotsView = (ListView)findViewById(R.id.shots_listView);
+       /* ListView shotsView = (ListView)findViewById(R.id.shots_listView);
         int position = shotsView.getCheckedItemPosition();
 
         boolean valid = true;
@@ -107,6 +218,7 @@ public class ViewShotsActivity extends AppCompatActivity {
 
             showShots(getCurrentFocus());
         }
+        */
 
     }
 
@@ -118,14 +230,17 @@ public class ViewShotsActivity extends AppCompatActivity {
         shotWithLabels = shotWithLabels.replaceAll("Back Spin: ", "");
         shotWithLabels = shotWithLabels.replaceAll("Side Spin: ", "");
         shotWithLabels = shotWithLabels.replaceAll("Launch Angle: ", "");
+        shotWithLabels = shotWithLabels.replaceAll("\n", " ");
         shotWithLabels = shotWithLabels.replaceAll("  ", " ");
+
 
         String[] values = shotWithLabels.split(" ");
 
         Double speed = Double.parseDouble(values[0].trim());
-        Integer spin = Integer.parseInt(values[1].trim());
+        Double angle = Double.parseDouble(values[1].trim());
+        Integer spin = Integer.parseInt(values[3].trim());
         Integer sideSpin = Integer.parseInt(values[2].trim());
-        Double angle = Double.parseDouble(values[3].trim());
+
 
         Shot shot = new Shot(speed, spin, sideSpin, angle);
         return shot;
