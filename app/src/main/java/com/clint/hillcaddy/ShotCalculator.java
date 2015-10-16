@@ -128,6 +128,18 @@ public class ShotCalculator
 
     }
 
+    //note that pressure should be sent in Pa, temperature in K, and humidity as a percentage
+    public static Double calculateAirDensity(Float pressure, Float temperature, Float relativeHumidity)
+    {
+        Double temp_cels = temperature - 273.0;
+        Double pressure_saturation = .061078 * Math.pow(10,((7.5 * temp_cels) / (temp_cels + 237.3)));
+
+        Double pressure_vapor = relativeHumidity * pressure_saturation;
+        Double pressure_dry = pressure - pressure_vapor;
+
+        return (pressure_dry / (Constants.R_DRYAIR * temperature)) + (pressure_vapor / (Constants.R_WATERVAPOR * temperature));
+    }
+
 
 
 

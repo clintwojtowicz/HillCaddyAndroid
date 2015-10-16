@@ -18,6 +18,9 @@ public class Constants
 
     public static final Double roAirSeaLvl = 1.2;
 
+    public static final Double R_DRYAIR = 287.058;
+    public static final Double R_WATERVAPOR = 461.495;
+
 
 
 }

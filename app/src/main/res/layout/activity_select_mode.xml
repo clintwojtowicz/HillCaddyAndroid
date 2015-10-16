@@ -14,17 +14,16 @@
         android:paddingBottom="20dp"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="@string/sel_course_button"
         android:onClick="showCourseModeView"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="@string/sel_range_button"
         android:onClick="showRangeModeView"/>
-
 
 
 </LinearLayout>

@@ -53,13 +53,16 @@ public class MainActivity extends AppCompatActivity {
         Spinner profSpinner = (Spinner)findViewById(R.id.selProf_Spinner);
         String selectedProf = profSpinner.getSelectedItem().toString();
 
-        if (selectedProf != null)
+        if (selectedProf != "")
         {
             globals.setCurrentProfileWithName(selectedProf);
 
-            //show Select Mode activity
-            Intent intent = new Intent(this,SelectModeActivity.class);
-            startActivity(intent);
+        }
+        else
+        {
+            //there is no profile available so inform the user to create one before proceeding
+
+            showCreateProfileView(view);
         }
     }
 
@@ -80,6 +83,32 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nameList);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
+
+    }
+
+    public void showCourseModeView(View view)
+    {
+        loadProfile(view);
+
+        //calculate the average shot for each club when entering course mode
+        Profile profile = globals.getCurrentProfile();
+        DatabaseHelper db = globals.getDB();
+        profile.calculateClubAverages(db);
+        globals.setCurrentProfile(profile);
+
+        Intent intent = new Intent(this, CourseModeActivity.class);
+        startActivity(intent);
+
+
+
+    }
+
+    public void showRangeModeView(View view)
+    {
+        loadProfile(view);
+
+        Intent intent = new Intent(this, RangeModeActivity.class);
+        startActivity(intent);
 
     }
 

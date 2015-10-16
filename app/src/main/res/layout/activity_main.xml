@@ -7,33 +7,49 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <TextView android:text="@string/sel_profile_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:textSize="30sp"/>
-
-    <Spinner
-        android:id="@+id/selProf_Spinner"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="60dp"
-        >
-    </Spinner>
+        android:orientation="horizontal">
+
+        <TextView android:text="@string/sel_profile_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:textSize="20sp"/>
+
+        <Spinner
+            android:id="@+id/selProf_Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            >
+        </Spinner>
+
+
+    </LinearLayout>
+
+
+
 
     <Button
-        android:text="@string/sel_prof_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="loadProfile"
-        />
+        android:text="@string/sel_course_button"
+        android:onClick="showCourseModeView"/>
 
     <Button
-        android:text="@string/create_prof_view_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="showCreateProfileView"
-        />
+        android:text="@string/sel_range_button"
+        android:onClick="showRangeModeView"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sel_mode_desc"
+        android:paddingBottom="20dp"/>
+
 
 
 

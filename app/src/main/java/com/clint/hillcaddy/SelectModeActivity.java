@@ -40,25 +40,7 @@ public class SelectModeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showCourseModeView(View view)
-    {
-        Intent intent = new Intent(this, CourseModeActivity.class);
-        startActivity(intent);
 
-        //calculate the average shot for each club when entering course mode
-        Profile profile = globals.getCurrentProfile();
-        DatabaseHelper db = globals.getDB();
-        profile.calculateClubAverages(db);
-        globals.setCurrentProfile(profile);
-
-    }
-
-    public void showRangeModeView(View view)
-    {
-        Intent intent = new Intent(this, RangeModeActivity.class);
-        startActivity(intent);
-
-    }
 
 
 }

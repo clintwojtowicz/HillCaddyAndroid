@@ -36,18 +36,18 @@
         <activity
             android:name=".CourseModeActivity"
             android:label="@string/title_activity_course_mode"
-            android:parentActivityName=".SelectModeActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.clint.hillcaddy.SelectModeActivity" />
+                android:value="com.clint.hillcaddy.MainActivity" />
         </activity>
         <activity
             android:name=".RangeModeActivity"
             android:label="@string/title_activity_range_mode"
-            android:parentActivityName=".SelectModeActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.clint.hillcaddy.SelectModeActivity" />
+                android:value="com.clint.hillcaddy.MainActivity" />
         </activity>
         <activity
             android:name=".AddClubActivity"

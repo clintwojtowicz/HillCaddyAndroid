@@ -21,4 +21,11 @@
         android:text="@string/calcClub_course_button"
         android:onClick="showRecommendedClubs" />
 
+    <Button
+        android:id="@+id/calcDens_course_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/calcDensity_course_button"
+        android:onClick="calculateAirDensity" />
+
 </LinearLayout>
