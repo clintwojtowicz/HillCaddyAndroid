@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class CourseModeActivity extends Activity implements SensorEventListener{
+public class CourseModeActivity extends AppCompatActivity implements SensorEventListener{
 
     private SensorManager sensorManager;
     private Sensor pressureSensor;
@@ -29,18 +29,21 @@ public class CourseModeActivity extends Activity implements SensorEventListener{
     private Boolean tempFlag;
     private Boolean humidFlag;
 
+    GlobalVars globals;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_mode);
 
+        globals = (GlobalVars)getApplicationContext();
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         relativeHumiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
         currentSensor = 0;
-        this.checkForSensors();
     }
 
     @Override
@@ -111,6 +114,12 @@ public class CourseModeActivity extends Activity implements SensorEventListener{
 
     public void showDistanceCard(View view)
     {
+        //calculate the average shot for each club before showing distance card
+        Profile profile = globals.getCurrentProfile();
+        DatabaseHelper db = globals.getDB();
+        profile.calculateClubAverages(db, globals.getRo());
+        globals.setCurrentProfile(profile);
+
         Intent intent = new Intent(this, DistanceCardActivity.class);
         startActivity(intent);
 
@@ -128,36 +137,40 @@ public class CourseModeActivity extends Activity implements SensorEventListener{
 
     public void calculateAirDensity(View view)
     {
-        tempFlag = false;
-        humidFlag = true;
+        Boolean sensorsValid = this.checkForSensors();
 
-        //get pressure measurements
-        currentSensor = Sensor.TYPE_PRESSURE;
-        sensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_UI);
+        if (sensorsValid) {
+            tempFlag = false;
+            humidFlag = false;
 
-        while(tempFlag == false && humidFlag == false) {
+            //get pressure measurements
+            currentSensor = Sensor.TYPE_PRESSURE;
+            sensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_UI);
 
-            if(tempFlag) {
-                //get temp measurements
-                currentSensor = Sensor.TYPE_AMBIENT_TEMPERATURE;
-                sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_UI);
+            while (!tempFlag && !humidFlag) {
+
+                if (tempFlag) {
+                    //get temp measurements
+                    currentSensor = Sensor.TYPE_AMBIENT_TEMPERATURE;
+                    sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_UI);
+                }
+
+                if (humidFlag) {
+                    //get relative humidity measurements
+                    currentSensor = Sensor.TYPE_RELATIVE_HUMIDITY;
+                    sensorManager.registerListener(this, relativeHumiditySensor, SensorManager.SENSOR_DELAY_UI);
+                }
+
             }
 
-            if(humidFlag) {
-                //get relative humidity measurements
-                currentSensor = Sensor.TYPE_RELATIVE_HUMIDITY;
-                sensorManager.registerListener(this, relativeHumiditySensor, SensorManager.SENSOR_DELAY_UI);
-            }
+            Double ro = ShotCalculator.calculateAirDensity(pressure_hPa * 100, temp_Celsius + 273, relativeHumidity);
 
+            this.showResultsMessage("Results", "Measured Air Density is: " + ro.toString() + " kg/m^3");
         }
-
-        Double ro = ShotCalculator.calculateAirDensity(pressure_hPa * 100, temp_Celsius + 273, relativeHumidity);
-
-        this.showDialogMessage("Results", "Measured Air Density is: " + ro.toString() + "kg/m^3");
 
     }
 
-    private void checkForSensors()
+    private Boolean checkForSensors()
     {
         Boolean valid = true;
         String badSensors = "";
@@ -179,16 +192,15 @@ public class CourseModeActivity extends Activity implements SensorEventListener{
         if (!valid)
         {
             //no sensor available, show them a message and make the button unclickable
-            this.showDialogMessage("Error", "The following sensors are not available: \n" + badSensors + "\nDefault sea level air density of 1.2 will be used");
-            Button captureButton = (Button)findViewById(R.id.calcDens_course_button);
-            captureButton.setClickable(false);
+            this.showErrorMessage("Error", "The following sensors are not available on this device: \n\n" + badSensors + "\nWould you like to enter the missing data?");
         }
 
+        return valid;
 
 
     }
 
-    public void showDialogMessage(String title, String message)
+    public void showResultsMessage(String title, String message)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -197,6 +209,30 @@ public class CourseModeActivity extends Activity implements SensorEventListener{
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        builder.show();
+    }
+
+    public void showErrorMessage(String title, String message)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getBaseContext(), AirDensityActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
             }
         });
 

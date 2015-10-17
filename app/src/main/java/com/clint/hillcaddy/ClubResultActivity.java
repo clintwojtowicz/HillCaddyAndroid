@@ -60,7 +60,7 @@ public class ClubResultActivity extends AppCompatActivity {
     private void showShotResults(Integer ydist, Integer zdist)
     {
         Profile profile = globals.getCurrentProfile();
-        List<ShotResult> distanceList = profile.getAllDistancesFromTarget(ydist, zdist);
+        List<ShotResult> distanceList = profile.getAllDistancesFromTarget(ydist, zdist, globals.getRo());
 
         TableLayout distanceTable = (TableLayout) findViewById(R.id.resultCard_table);
         TableRow header = new TableRow(this);
@@ -113,7 +113,8 @@ public class ClubResultActivity extends AppCompatActivity {
         builder.setCancelable(true);
         builder.setTitle("HillCaddy Says...");
         if (shot.getDistance() < 0) {
-            builder.setMessage("The closest club is your " + shot.getClubName() + ". It will land " + shot.getDistance().toString() + " yds short of the target");
+            Integer shotAbs = Math.abs(shot.getDistance());
+            builder.setMessage("The closest club is your " + shot.getClubName() + ". It will land " + shotAbs.toString() + " yds short of the target");
         }
         else
         {
@@ -137,7 +138,7 @@ public class ClubResultActivity extends AppCompatActivity {
         while (iterator.hasNext())
         {
             ShotResult shotToCheck = iterator.next();
-            if(Math.abs(shotToCheck.getDistance()) < closest.getDistance())
+            if(Math.abs(shotToCheck.getDistance()) < Math.abs(closest.getDistance()))
             {
                 closest = shotToCheck;
             }

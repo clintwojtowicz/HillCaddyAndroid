@@ -64,7 +64,7 @@ public class Profile
 
     }
 
-    public void calculateClubAverages(DatabaseHelper db)
+    public void calculateClubAverages(DatabaseHelper db, Double airDensity)
     {
         ListIterator<Club> iterator = bag.listIterator();
 
@@ -78,7 +78,7 @@ public class Profile
 
             //set average shot and average distance for each club
             currentClub.setAverageShot(avgShot);
-            currentClub.setAverageDistance(ShotCalculator.calculateDistance(avgShot, 0));
+            currentClub.setAverageDistance(ShotCalculator.calculateDistance(avgShot, 0, airDensity));
 
             bag.set(currentIndex, currentClub);
 
@@ -157,7 +157,7 @@ public class Profile
 
     }
 
-    public List<ShotResult> getAllDistancesFromTarget(Integer Ydist, Integer Zdist)
+    public List<ShotResult> getAllDistancesFromTarget(Integer Ydist, Integer Zdist, Double airDensity)
     {
         Iterator<Club> iterator = bag.iterator();
 
@@ -169,7 +169,7 @@ public class Profile
             Club tempClub = iterator.next();
             ShotResult shot = new ShotResult();
             //show distance in yards
-            Long distanceYards =  Math.round(Conversion.meterToYard((double)ShotCalculator.calculateDistance(tempClub.getAverageShot(), Zdist)));
+            Long distanceYards =  Math.round(Conversion.meterToYard((double)ShotCalculator.calculateDistance(tempClub.getAverageShot(), Zdist, airDensity)));
             shot.setClubName(tempClub.getName());
             shot.setDistance(distanceYards.intValue() - Ydist);
             distanceList.add(shot);

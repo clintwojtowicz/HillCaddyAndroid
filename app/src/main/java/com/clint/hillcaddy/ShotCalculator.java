@@ -29,11 +29,11 @@ public class ShotCalculator
 
      */
 
-    public static Integer calculateDistance(Shot shot, Integer elevationDiff)
+    public static Integer calculateDistance(Shot shot, Integer elevationDiff, Double airDensity)
     {
         Double dt = .001;
         Double area = (Constants.DIAMETER_GB/2) * (Constants.DIAMETER_GB/2) * Constants.PI;     //A = pi* r^2
-        Double ro = getRoFromElevation(0);
+        Double ro = airDensity;
 
         //get all of the shot characteristics in SI units for calculations
         Double speed = Conversion.mphToMs(shot.getBallSpeed());
@@ -89,13 +89,6 @@ public class ShotCalculator
         return Constants.C_DRAG_INITIAL + (Conversion.radpsToRpm(spin) * Constants.SPIN_WEIGHT);
     }
 
-    private static Double getRoFromElevation(Integer elevation)
-    {
-        //TODO: implement ro based on elevation
-
-        return Constants.roAirSeaLvl;
-    }
-
     private static Vector3D getLaunchVector(Double speed, Double launchAngle, Double azimuthAngle)
     {
         return new Vector3D(speed * Math.cos(launchAngle) * Math.tan(azimuthAngle), speed * Math.cos(launchAngle), speed * Math.sin(launchAngle));
@@ -132,9 +125,9 @@ public class ShotCalculator
     public static Double calculateAirDensity(Float pressure, Float temperature, Float relativeHumidity)
     {
         Double temp_cels = temperature - 273.0;
-        Double pressure_saturation = .061078 * Math.pow(10,((7.5 * temp_cels) / (temp_cels + 237.3)));
 
-        Double pressure_vapor = relativeHumidity * pressure_saturation;
+        //vapor pressure = relative humidity * saturation pressure
+        Double pressure_vapor = relativeHumidity * 6.1078 * Math.pow(10,((7.5 * temp_cels) / (temp_cels + 237.3)));
         Double pressure_dry = pressure - pressure_vapor;
 
         return (pressure_dry / (Constants.R_DRYAIR * temperature)) + (pressure_vapor / (Constants.R_WATERVAPOR * temperature));

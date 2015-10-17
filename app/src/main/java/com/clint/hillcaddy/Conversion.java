@@ -45,5 +45,16 @@ public class Conversion
         return radps * 30.0 / Constants.PI;
     }
 
+    public static Integer celsiusToFahrenheit(Float tempC)
+    {
+        return (int)Math.round(tempC * 1.8 + 32);
+
+    }
+
+    public static Float fahrenheitToCelsius(Integer tempF)
+    {
+        return (float)((tempF - 32) / 1.8);
+    }
+
 
 }

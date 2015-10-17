@@ -64,11 +64,18 @@
     <string name="angleCapt_recommendClub_button">Auto Capture Angle w/ Phone</string>
     <string name="calcClub_recommendClub_button">Calculate Best Club</string>
 
-
     //Angle Capture Activity
     <string name="title_activity_angle_capture">Angle Capture</string>
     <string name="capture_angleCapture_button">Press to Capture Angle</string>
     <string name="title_activity_club_result">Club Results</string>
+
+    //Air Density Activity
+    <string name="title_activity_air_density">Air Density Calculator</string>
+    <string name="pressure_airDens_text">Pressure (hPa): </string>
+    <string name="temp_airDens_text">Temperature (F): </string>
+    <string name="humidity_airDens_text">Relative Humidity (%): </string>
+    <string name="calc_airDens_button">Calculate Air Density</string>
+    <string name="default_airDens_button">Reset Air Density to Default</string>
 
 
 

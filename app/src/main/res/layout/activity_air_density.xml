@@ -4,26 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.clint.hillcaddy.RangeModeActivity"
+    tools:context="com.clint.hillcaddy.AirDensityActivity"
     android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/range_sel_club"
-        android:paddingBottom="10dp"
-        android:textSize = "18dp"/>
-
-    <Spinner
-        android:id="@+id/selClub_range_Spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="0dp"
-        >
-    </Spinner>
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ball_speed_text"
+            android:text="@string/pressure_airDens_text"
             android:textSize="14sp"
             android:paddingTop="20dp"
             android:paddingBottom="10dp" />
@@ -41,60 +23,13 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id= "@+id/ballSpeed_range_editText"
-            android:inputType="numberDecimal"
-            android:maxLength="5"
-            android:paddingBottom="10dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back_spin_text"
-            android:textSize="14sp"
-            android:paddingBottom="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id= "@+id/backSpin_range_editText"
+            android:id= "@+id/pressure_airDens_editText"
             android:inputType="number"
             android:maxLength="5"
             android:paddingBottom="10dp"/>
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/side_spin_text"
-            android:textSize="14sp"
-            android:paddingBottom="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id= "@+id/sideSpin_range_editText"
-            android:inputType="numberSigned"
-            android:maxLength="5"
-            android:paddingBottom="10dp"/>
-
-    </LinearLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,41 +38,55 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/launch_angle_text"
+            android:text="@string/temp_airDens_text"
             android:textSize="14sp"
-            android:paddingBottom="10dp"/>
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id= "@+id/launchAngle_range_editText"
-            android:inputType="numberDecimal"
-            android:maxLength="4"
+            android:id= "@+id/temp_airDens_editText"
+            android:inputType="number"
+            android:maxLength="3"
             android:paddingBottom="10dp"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/humidity_airDens_text"
+            android:textSize="14sp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id= "@+id/humidity_airDens_editText"
+            android:inputType="number"
+            android:maxLength="3"
+            android:paddingBottom="10dp"/>
+
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/addShot_range_button"
-        android:onClick="addShot"/>
+        android:text="@string/calc_airDens_button"
+        android:onClick="performManualAirDensityCalc"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/viewShots_range_button"
-        android:onClick="viewShots"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/addRemove_range_button"
-        android:onClick="addNewClub" />
-
-
+        android:text="@string/default_airDens_button"
+        android:onClick="setAirDensityToDefault"/>
 
 
 

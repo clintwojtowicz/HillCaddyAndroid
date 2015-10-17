@@ -11,6 +11,7 @@ public class GlobalVars extends Application
 {
     private Profile currentProfile = new Profile();
     private Integer elevation = 0;      //TODO: implement ro based on elevation in settings
+    private Double ro = 1.2;        //default setting for air density is 1.2
 
     private DatabaseHelper db = new DatabaseHelper(this);
 
@@ -35,7 +36,7 @@ public class GlobalVars extends Application
         if ((currentProfile == null)||(currentProfile.getName() == ""))
         {
             this.currentProfile = db.getLastUsedProfile();
-            this.currentProfile.calculateClubAverages(db);
+            this.currentProfile.calculateClubAverages(db, ro);
         }
 
         return this.currentProfile;
@@ -47,7 +48,15 @@ public class GlobalVars extends Application
         return db;
     }
 
+    public Double getRo()
+    {
+        return this.ro;
+    }
 
+    public void setRo(Double newRo)
+    {
+        this.ro = newRo;
+    }
 
 
 

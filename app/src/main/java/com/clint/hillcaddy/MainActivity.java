@@ -90,12 +90,6 @@ public class MainActivity extends AppCompatActivity {
     {
         loadProfile(view);
 
-        //calculate the average shot for each club when entering course mode
-        Profile profile = globals.getCurrentProfile();
-        DatabaseHelper db = globals.getDB();
-        profile.calculateClubAverages(db);
-        globals.setCurrentProfile(profile);
-
         Intent intent = new Intent(this, CourseModeActivity.class);
         startActivity(intent);
 
