@@ -9,24 +9,25 @@ public class Shot
     private Integer backSpin;
     private Integer sideSpin;
     private Double launchAngle;
+    private Integer id;
 
-    private Integer distance;
-
-    public Shot(Double _ballSpeed, Integer _backSpin, Integer _sideSpin, Double _launchAngle)
+    public Shot(Double _ballSpeed, Integer _backSpin, Integer _sideSpin, Double _launchAngle, Integer _id)
     {
         ballSpeed = _ballSpeed;
         backSpin = _backSpin;
         sideSpin = _sideSpin;
         launchAngle = _launchAngle;
+        id = _id;
 
     }
 
-    public Shot(String _ballSpeed, String _backSpin, String _sideSpin, String _launchAngle)
+    public Shot(String _ballSpeed, String _backSpin, String _sideSpin, String _launchAngle, String _id)
     {
         ballSpeed = Double.parseDouble(_ballSpeed);
         backSpin = Integer.parseInt(_backSpin);
         sideSpin = Integer.parseInt(_sideSpin);
         launchAngle = Double.parseDouble(_launchAngle);
+        id = Integer.parseInt(_id);
 
     }
 
@@ -64,13 +65,6 @@ public class Shot
         return launchAngle;
     }
 
-    public Integer calculateDistance(Integer elevationChange)
-    {
-
-
-
-
-        return 0;
-    }
+    public Integer getID() { return id; }
 
 }

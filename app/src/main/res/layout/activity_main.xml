@@ -44,11 +44,19 @@
         android:text="@string/sel_range_button"
         android:onClick="showRangeModeView"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_prof_view_button"
+        android:onClick="showCreateProfileView"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sel_mode_desc"
         android:paddingBottom="20dp"/>
+
+
 
 
 

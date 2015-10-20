@@ -92,7 +92,7 @@ public class Profile
     {
         if (shots.isEmpty())
         {
-            return new Shot(0.0, 0, 0, 0.0);
+            return new Shot(0.0, 0, 0, 0.0, 0);
         }
         Iterator<Shot> iterator = shots.iterator();
         Double speedSum = 0.0;
@@ -117,7 +117,7 @@ public class Profile
         Integer avgSideSpin = sideSpinSum / count;
         Double avgAngle = angleSum / count;
 
-        return new Shot(avgSpeed, avgSpin, avgSideSpin, avgAngle);
+        return new Shot(avgSpeed, avgSpin, avgSideSpin, avgAngle, 0);
 
 
 

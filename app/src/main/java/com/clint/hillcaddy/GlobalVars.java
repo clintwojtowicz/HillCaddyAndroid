@@ -10,7 +10,6 @@ import java.util.List;
 public class GlobalVars extends Application
 {
     private Profile currentProfile = new Profile();
-    private Integer elevation = 0;      //TODO: implement ro based on elevation in settings
     private Double ro = 1.2;        //default setting for air density is 1.2
 
     private DatabaseHelper db = new DatabaseHelper(this);
@@ -33,7 +32,7 @@ public class GlobalVars extends Application
 
     public Profile getCurrentProfile()
     {
-        if ((currentProfile == null)||(currentProfile.getName() == ""))
+        if ((currentProfile == null)||(currentProfile.getName().equals("")))
         {
             this.currentProfile = db.getLastUsedProfile();
             this.currentProfile.calculateClubAverages(db, ro);
@@ -50,6 +49,11 @@ public class GlobalVars extends Application
 
     public Double getRo()
     {
+        if (ro == null)
+        {
+            this.ro = Constants.roAirSeaLvl;
+        }
+
         return this.ro;
     }
 

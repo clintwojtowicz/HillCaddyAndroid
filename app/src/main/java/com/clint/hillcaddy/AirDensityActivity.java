@@ -20,13 +20,9 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
     private Sensor pressureSensor;
     private Sensor temperatureSensor;
     private Sensor relativeHumiditySensor;
-    private Integer currentSensor;
     private Float pressure_hPa;
     private Float temp_Celsius;
     private Float relativeHumidity;
-    private volatile Boolean pressureMeasDone;
-    private volatile Boolean tempMeasDone;
-    private volatile Boolean humidMeasDone;
     GlobalVars globals;
 
 
@@ -87,24 +83,29 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
 
     public void onSensorChanged(SensorEvent event)
     {
-        switch(currentSensor)
+        switch(event.sensor.getType())
         {
             case Sensor.TYPE_PRESSURE:
                 pressure_hPa = event.values[0];
                 sensorManager.unregisterListener(this, pressureSensor);
-                pressureMeasDone = true;
+                EditText pressureText = (EditText) findViewById(R.id.pressure_airDens_editText);
+                Integer press = Math.round(pressure_hPa);
+                pressureText.setText(press.toString());
                 break;
 
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
                 temp_Celsius = event.values[0];
                 sensorManager.unregisterListener(this, temperatureSensor);
-                tempMeasDone = true;
+                EditText temperatureText = (EditText) findViewById(R.id.temp_airDens_editText);
+                temperatureText.setText(Conversion.celsiusToFahrenheit(temp_Celsius).toString());
                 break;
 
             case Sensor.TYPE_RELATIVE_HUMIDITY:
                 relativeHumidity = event.values[0];
                 sensorManager.unregisterListener(this, relativeHumiditySensor);
-                humidMeasDone = true;
+                EditText humidityText = (EditText) findViewById(R.id.humidity_airDens_editText);
+                Integer humid = Math.round(relativeHumidity);
+                humidityText.setText(humid.toString());
                 break;
 
 
@@ -119,33 +120,7 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
         pressure_hPa = (float)0.0;
         relativeHumidity = (float)0.0;
 
-        if(pressureSensor != null)
-        {
-            //get pressure measurements
-            currentSensor = Sensor.TYPE_PRESSURE;
-            sensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_UI);
-            pressureMeasDone = false;
-
-
-        }
-        if (temperatureSensor != null)
-        {
-            //get temp measurements
-            currentSensor = Sensor.TYPE_AMBIENT_TEMPERATURE;
-            sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_UI);
-            tempMeasDone = false;
-
-        }
-        if (relativeHumiditySensor != null)
-        {
-            //get relative humidity measurements
-            currentSensor = Sensor.TYPE_RELATIVE_HUMIDITY;
-            sensorManager.registerListener(this, relativeHumiditySensor, SensorManager.SENSOR_DELAY_UI);
-            humidMeasDone = false;
-
-
-        }
-
+        //show 0's in all three field to start and wait for sensor input if it occurs
         EditText pressureText = (EditText) findViewById(R.id.pressure_airDens_editText);
         Integer press = Math.round(pressure_hPa);
         pressureText.setText(press.toString());
@@ -156,6 +131,28 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
         EditText humidityText = (EditText) findViewById(R.id.humidity_airDens_editText);
         Integer humid = Math.round(relativeHumidity);
         humidityText.setText(humid.toString());
+
+        if(pressureSensor != null)
+        {
+            //get pressure measurements
+            sensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_FASTEST);
+
+
+        }
+        if (temperatureSensor != null)
+        {
+            //get temp measurements
+            sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_FASTEST);
+
+        }
+        if (relativeHumiditySensor != null)
+        {
+            //get relative humidity measurements
+            sensorManager.registerListener(this, relativeHumiditySensor, SensorManager.SENSOR_DELAY_FASTEST);
+
+
+        }
+
 
 
     }

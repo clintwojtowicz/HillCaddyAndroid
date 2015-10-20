@@ -50,45 +50,50 @@ public class RangeModeActivity extends AppCompatActivity {
 
     public void addShot(View view)
     {
-        Double ballSpeed = 0.0;
-        Integer backSpin = 0;
-        Integer sideSpin = 0;
-        Double launchAngle = 0.0;
-
-        boolean valid = true;
-        try {
-            EditText speedEditText = (EditText) findViewById(R.id.ballSpeed_range_editText);
-            ballSpeed = Double.parseDouble(speedEditText.getText().toString());
-
-            EditText spinEditText = (EditText) findViewById(R.id.backSpin_range_editText);
-            backSpin = Integer.parseInt(spinEditText.getText().toString());
-
-            EditText sideSpinEditText = (EditText) findViewById(R.id.sideSpin_range_editText);
-            sideSpin = Integer.parseInt(sideSpinEditText.getText().toString());
-
-            EditText angleEditText = (EditText) findViewById(R.id.launchAngle_range_editText);
-            launchAngle = Double.parseDouble(angleEditText.getText().toString());
-        }
-        catch (Exception e)
+        //check to see if there is a club selected, if not direct user to addClub activity
+        Spinner clubSpinner = (Spinner) findViewById(R.id.selClub_range_Spinner);
+        if (clubSpinner.getCount() < 1)
         {
-            //show invalid shot message box
-            showMessage("Invalid Shot Parameter");
-            valid = false;
+            addNewClub(view);
         }
-        if(valid)
-        {
-            Shot shot = new Shot(ballSpeed, backSpin, sideSpin, launchAngle);
+        else {
+            Double ballSpeed = 0.0;
+            Integer backSpin = 0;
+            Integer sideSpin = 0;
+            Double launchAngle = 0.0;
 
-            //send shot data to db
-            DatabaseHelper db = globals.getDB();
-            String currentProf = globals.getCurrentProfile().getName();
+            boolean validShot = true;
+            try {
+                EditText speedEditText = (EditText) findViewById(R.id.ballSpeed_range_editText);
+                ballSpeed = Double.parseDouble(speedEditText.getText().toString());
 
-            Spinner clubSpinner = (Spinner) findViewById(R.id.selClub_range_Spinner);
-            String clubUsed = clubSpinner.getSelectedItem().toString();
+                EditText spinEditText = (EditText) findViewById(R.id.backSpin_range_editText);
+                backSpin = Integer.parseInt(spinEditText.getText().toString());
 
-            db.addShot(currentProf, clubUsed, shot);
+                EditText sideSpinEditText = (EditText) findViewById(R.id.sideSpin_range_editText);
+                sideSpin = Integer.parseInt(sideSpinEditText.getText().toString());
 
-            this.clearShotTextEdits();
+                EditText angleEditText = (EditText) findViewById(R.id.launchAngle_range_editText);
+                launchAngle = Double.parseDouble(angleEditText.getText().toString());
+            } catch (Exception e) {
+                //show invalid shot message box
+                showMessage("Invalid Shot Parameter");
+                validShot = false;
+            }
+
+            if (validShot) {
+                Shot shot = new Shot(ballSpeed, backSpin, sideSpin, launchAngle, 0);
+
+                //send shot data to db
+                DatabaseHelper db = globals.getDB();
+                String currentProf = globals.getCurrentProfile().getName();
+
+                String clubUsed = clubSpinner.getSelectedItem().toString();
+
+                db.addShot(currentProf, clubUsed, shot);
+
+                this.clearShotTextEdits();
+            }
         }
 
     }
@@ -98,14 +103,12 @@ public class RangeModeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddClubActivity.class);
         startActivity(intent);
 
-
     }
 
     public void viewShots(View view)
     {
         Intent intent = new Intent(this, ViewShotsActivity.class);
         startActivity(intent);
-
 
     }
 

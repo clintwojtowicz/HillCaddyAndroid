@@ -1,6 +1,8 @@
 package com.clint.hillcaddy;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -47,16 +49,30 @@ public class CreateProfileActivity extends AppCompatActivity {
         //get name and create a profile with it
         EditText editText = (EditText)findViewById(R.id.new_Name);
         String newName = editText.getText().toString();
+        if (checkForNonEmptyString(newName)) {
 
-        DatabaseHelper db = globals.getDB();
-        boolean success = db.addProfile(newName);
+            DatabaseHelper db = globals.getDB();
+            boolean success = db.addProfile(newName);
 
-        hideKeyboard();
+            hideKeyboard();
+            editText.getText().clear();
 
-        if(!success)
-        {
-            //show error window telling the user that name is already used
+            if (!success) {
+                //show error window telling the user that name is already used
+                showErrorDialog(newName);
+            }
         }
+
+    }
+
+    private Boolean checkForNonEmptyString(String name) {
+        name = name.trim();
+        name = name.replaceAll(" ", "");
+        if (name.equals(""))
+        {
+            return false;
+        }
+        else return true;
 
     }
 
@@ -66,5 +82,20 @@ public class CreateProfileActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
+    }
+
+    public void showErrorDialog(String userName)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Error");
+        builder.setMessage("A profile for " + userName + " could not be created because it already exists.");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        builder.show();
     }
 }

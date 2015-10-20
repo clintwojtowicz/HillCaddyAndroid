@@ -8,7 +8,7 @@
     <string name="sel_course_button">Course Mode</string>
     <string name="sel_range_button">Range Mode</string>
     <string name="create_prof_view_button">Create New Profile</string>
-    <string name="sel_mode_desc">-Select Course Mode to launch the HillCaddy shot calculator \n-Select Range Mode to add clubs and shots to your profile</string>
+    <string name="sel_mode_desc">Instructions: \n   -Select Course Mode to launch the HillCaddy shot calculator \n   -Select Range Mode to add clubs and shots to your profile</string>
 
 
 

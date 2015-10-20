@@ -25,7 +25,7 @@ import java.util.EventListener;
 import java.util.Iterator;
 import java.util.List;
 
-public class ViewShotsActivity extends AppCompatActivity {
+public class ViewShotsActivity extends AppCompatActivity implements EventListener{
 
     GlobalVars globals;
     Spinner clubsSpinner;
@@ -179,9 +179,20 @@ public class ViewShotsActivity extends AppCompatActivity {
             t4v.setTextSize(12);
             tbrow.addView(t4v);
 
+            //set button id to shot id so we can use it to remove the shot
+            //this is okay because android assigned ids start at 0x00FFFFFF, there will never be that many shots
             Button button = new Button(this);
             button.setText("Remove");
-            tbrow.addView(button);
+            button.setId(shot.getID());
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeSelectedShot(v);
+
+
+                }
+            });
+                tbrow.addView(button);
 
             shotTable.addView(tbrow);
         }
@@ -190,62 +201,22 @@ public class ViewShotsActivity extends AppCompatActivity {
 
     public void removeSelectedShot(View view)
     {
-       /* ListView shotsView = (ListView)findViewById(R.id.shots_listView);
-        int position = shotsView.getCheckedItemPosition();
 
-        boolean valid = true;
-        String selectedItem = "";
-        try
-        {
-            selectedItem = shotsView.getItemAtPosition(position).toString();
-        }
-        catch (Exception e)
-        {
-            valid = false;
-        }
-        if (valid)
-        {
-            Shot selectedShot = parseShotLabels(selectedItem);
+        DatabaseHelper db = globals.getDB();
+        Profile profile = globals.getCurrentProfile();
+        String currentUser = profile.getName();
+        Spinner clubSpinner = (Spinner) findViewById(R.id.selClub_viewShots_Spinner);
+        String currentClubName = clubSpinner.getSelectedItem().toString();
 
-            DatabaseHelper db = globals.getDB();
-            Profile profile = globals.getCurrentProfile();
-            String currentUser = profile.getName();
+        db.removeShot(currentUser, currentClubName, view.getId());
 
-            Spinner clubSpinner = (Spinner) findViewById(R.id.selClub_viewShots_Spinner);
-            String currentClubName = clubSpinner.getSelectedItem().toString();
+        showShots();
 
-            db.removeShot(currentUser, currentClubName, selectedShot);
-
-            showShots(getCurrentFocus());
-        }
-        */
 
     }
 
-    public Shot parseShotLabels(String shotWithLabels)
-    {
-        //"Ball Speed: "+ cursor.getString(0) + " Back Spin: "+ cursor.getString(1) + " Launch Angle: "+ cursor.getString(2);
-
-        shotWithLabels = shotWithLabels.replaceAll("Ball Speed: ", "");
-        shotWithLabels = shotWithLabels.replaceAll("Back Spin: ", "");
-        shotWithLabels = shotWithLabels.replaceAll("Side Spin: ", "");
-        shotWithLabels = shotWithLabels.replaceAll("Launch Angle: ", "");
-        shotWithLabels = shotWithLabels.replaceAll("\n", " ");
-        shotWithLabels = shotWithLabels.replaceAll("  ", " ");
 
 
-        String[] values = shotWithLabels.split(" ");
-
-        Double speed = Double.parseDouble(values[0].trim());
-        Double angle = Double.parseDouble(values[1].trim());
-        Integer spin = Integer.parseInt(values[3].trim());
-        Integer sideSpin = Integer.parseInt(values[2].trim());
-
-
-        Shot shot = new Shot(speed, spin, sideSpin, angle);
-        return shot;
-
-    }
 
 
 

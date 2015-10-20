@@ -47,25 +47,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void loadProfile(View view)
-    {
-        //load selected profile from local db
-        Spinner profSpinner = (Spinner)findViewById(R.id.selProf_Spinner);
-        String selectedProf = profSpinner.getSelectedItem().toString();
-
-        if (selectedProf != "")
-        {
-            globals.setCurrentProfileWithName(selectedProf);
-
-        }
-        else
-        {
-            //there is no profile available so inform the user to create one before proceeding
-
-            showCreateProfileView(view);
-        }
-    }
-
     public void showCreateProfileView(View view)
     {
         //show Create New Profile view
@@ -88,21 +69,46 @@ public class MainActivity extends AppCompatActivity {
 
     public void showCourseModeView(View view)
     {
-        loadProfile(view);
+        //load selected profile from local db
+        Spinner profSpinner = (Spinner)findViewById(R.id.selProf_Spinner);
+        Integer profileCount = profSpinner.getCount();
 
-        Intent intent = new Intent(this, CourseModeActivity.class);
-        startActivity(intent);
+        if (profileCount > 0)
+        {
+            String selectedProf = profSpinner.getSelectedItem().toString();
+            globals.setCurrentProfileWithName(selectedProf);
+            Intent intent = new Intent(this, CourseModeActivity.class);
+            startActivity(intent);
 
-
+        }
+        else
+        {
+            //there is no profile available so inform the user to create one before proceeding
+            showCreateProfileView(view);
+        }
 
     }
 
     public void showRangeModeView(View view)
     {
-        loadProfile(view);
+        //load selected profile from local db
+        Spinner profSpinner = (Spinner)findViewById(R.id.selProf_Spinner);
+        Integer profileCount = profSpinner.getCount();
 
-        Intent intent = new Intent(this, RangeModeActivity.class);
-        startActivity(intent);
+
+        if (profileCount > 0)
+        {
+            String selectedProf = profSpinner.getSelectedItem().toString();
+            globals.setCurrentProfileWithName(selectedProf);
+            Intent intent = new Intent(this, RangeModeActivity.class);
+            startActivity(intent);
+
+        }
+        else
+        {
+            //there is no profile available so inform the user to create one before proceeding
+            showCreateProfileView(view);
+        }
 
     }
 
