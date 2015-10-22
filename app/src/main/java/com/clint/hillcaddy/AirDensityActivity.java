@@ -3,16 +3,20 @@ package com.clint.hillcaddy;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import java.text.DecimalFormat;
 
 public class AirDensityActivity extends AppCompatActivity implements SensorEventListener{
 
@@ -30,9 +34,8 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_air_density);
-
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         globals = ((GlobalVars)getApplicationContext());
-
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
     }
@@ -175,7 +178,7 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
 
         globals.setRo(ro);
 
-        this.showResultsMessage("Results", "Measured Air Density is: " + ro.toString() + " kg/m^3");
+        this.showResultsMessage("Results", "Measured Air Density is: " + String.format("%.2f", ro) + " kg/m^3" );
 
     }
 

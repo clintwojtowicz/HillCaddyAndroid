@@ -88,6 +88,26 @@ public class Profile
 
     }
 
+    public void calculateClubAverageShot(DatabaseHelper db)
+    {
+        ListIterator<Club> iterator = bag.listIterator();
+
+        while(iterator.hasNext())
+        {
+            //get shot list by passing club and profile name
+            Integer currentIndex = iterator.nextIndex();
+            Club currentClub = iterator.next();
+            List<Shot> shotList = db.getShotList(currentClub.getName(), this.name);
+            Shot avgShot = calculateAverageShot(shotList);
+
+            //set average shot and average distance for each club
+            currentClub.setAverageShot(avgShot);
+            bag.set(currentIndex, currentClub);
+
+        }
+
+    }
+
     private Shot calculateAverageShot(List<Shot> shots)
     {
         if (shots.isEmpty())
@@ -157,6 +177,19 @@ public class Profile
 
     }
 
+    public List<ShotResult> sortShotResultList(List<ShotResult> shotResults)
+    {
+        Collections.sort(shotResults, new Comparator<ShotResult>() {
+            @Override
+            public int compare(ShotResult s1, ShotResult s2) {
+                return s2.getDistance() - s1.getDistance(); //descending order
+            }
+
+        });
+
+        return shotResults;
+    }
+
     public List<ShotResult> getAllDistancesFromTarget(Integer Ydist, Integer Zdist, Double airDensity)
     {
         Iterator<Club> iterator = bag.iterator();
@@ -175,6 +208,8 @@ public class Profile
             distanceList.add(shot);
 
         }
+
+        distanceList = sortShotResultList(distanceList);
 
         return distanceList;
     }

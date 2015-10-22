@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -36,6 +37,7 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_mode);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         globals = (GlobalVars)getApplicationContext();
 
@@ -129,6 +131,9 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
 
     public void showRecommendedClubs(View view)
     {
+        Profile profile = globals.getCurrentProfile();
+        DatabaseHelper db = globals.getDB();
+        profile.calculateClubAverageShot(db);
         Intent intent = new Intent(this, RecommendedClubActivity.class);
         startActivity(intent);
 
@@ -165,7 +170,7 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
 
             Double ro = ShotCalculator.calculateAirDensity(pressure_hPa * 100, temp_Celsius + 273, relativeHumidity);
 
-            this.showResultsMessage("Results", "Measured Air Density is: " + ro.toString() + " kg/m^3");
+            this.showResultsMessage("Results", "Measured Air Density is: " + String.format("%.2f", ro) + " kg/m^3" );
         }
 
     }

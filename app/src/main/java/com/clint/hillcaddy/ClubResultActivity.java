@@ -3,6 +3,7 @@ package com.clint.hillcaddy;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class ClubResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Integer Zdist = intent.getIntExtra(RecommendedClubActivity.EXTRA_ZDIST, 0);
         Integer Ydist = intent.getIntExtra(RecommendedClubActivity.EXTRA_YDIST, 0);
+
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         globals = ((GlobalVars)getApplicationContext());
 
@@ -66,13 +69,13 @@ public class ClubResultActivity extends AppCompatActivity {
         TableRow header = new TableRow(this);
 
         TextView tv0 = new TextView(this);
-        tv0.setText("    Club     ");
+        tv0.setText("Club      ");
         tv0.setTextColor(Color.BLACK);
         tv0.setTextSize(25);
         header.addView(tv0);
 
         TextView tv1 = new TextView(this);
-        tv1.setText("Landing Distance \nFrom Target (yds)");
+        tv1.setText("Carry Distance \nFrom Target (yds)");
         tv1.setTextColor(Color.BLACK);
         tv1.setTextSize(25);
         header.addView(tv1);
@@ -88,14 +91,12 @@ public class ClubResultActivity extends AppCompatActivity {
             TextView t1v = new TextView(this);
             t1v.setText(shot.getClubName());
             t1v.setTextColor(Color.BLACK);
-            t1v.setGravity(Gravity.CENTER);
             t1v.setTextSize(20);
             tbrow.addView(t1v);
 
             TextView t2v = new TextView(this);
             t2v.setText(shot.getDistance().toString());
             t2v.setTextColor(Color.BLACK);
-            t2v.setGravity(Gravity.CENTER);
             t2v.setTextSize(20);
             tbrow.addView(t2v);
 
@@ -116,9 +117,13 @@ public class ClubResultActivity extends AppCompatActivity {
             Integer shotAbs = Math.abs(shot.getDistance());
             builder.setMessage("The closest club is your " + shot.getClubName() + ". It will land " + shotAbs.toString() + " yds short of the target");
         }
-        else
+        else if (shot.getDistance() < 1000)
         {
             builder.setMessage("The closest club is your " + shot.getClubName() + ". It will land " + shot.getDistance().toString() + " yds past the target");
+        }
+        else
+        {
+            builder.setMessage("No valid shots available, go to range mode and check your clubs and shots.");
         }
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
