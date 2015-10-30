@@ -178,7 +178,7 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
 
         globals.setRo(ro);
 
-        this.showResultsMessage("Results", "Measured Air Density is: " + String.format("%.2f", ro) + " kg/m^3" );
+        this.showResultsMessage("Results", "Measured Air Density is: \n\n" + String.format("%.2f", ro) + " kg/m^3" );
 
     }
 

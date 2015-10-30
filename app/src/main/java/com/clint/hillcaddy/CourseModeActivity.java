@@ -1,6 +1,5 @@
 package com.clint.hillcaddy;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,20 +14,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
-public class CourseModeActivity extends AppCompatActivity implements SensorEventListener{
+public class CourseModeActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
     private Sensor pressureSensor;
     private Sensor temperatureSensor;
     private Sensor relativeHumiditySensor;
-    private Integer currentSensor;
     private Float pressure_hPa;
     private Float temp_Celsius;
     private Float relativeHumidity;
-    private Boolean tempFlag;
-    private Boolean humidFlag;
 
     GlobalVars globals;
 
@@ -39,13 +34,12 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
         setContentView(R.layout.activity_course_mode);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        globals = (GlobalVars)getApplicationContext();
+        globals = (GlobalVars) getApplicationContext();
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         relativeHumiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-        currentSensor = 0;
     }
 
     @Override
@@ -72,6 +66,7 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
 
     @Override
     protected void onResume() {
+        initializeDensitySensors();
         super.onResume();
     }
 
@@ -84,22 +79,19 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
     }
 
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy){}
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
-    public void onSensorChanged(SensorEvent event)
-    {
-        switch(currentSensor)
-        {
+    public void onSensorChanged(SensorEvent event) {
+        switch (event.sensor.getType()) {
             case Sensor.TYPE_PRESSURE:
                 pressure_hPa = event.values[0];
                 sensorManager.unregisterListener(this, pressureSensor);
-                tempFlag = true;
                 break;
 
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
                 temp_Celsius = event.values[0];
                 sensorManager.unregisterListener(this, temperatureSensor);
-                humidFlag = true;
                 break;
 
             case Sensor.TYPE_RELATIVE_HUMIDITY:
@@ -107,15 +99,13 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
                 sensorManager.unregisterListener(this, relativeHumiditySensor);
                 break;
 
-
         }
 
 
     }
 
 
-    public void showDistanceCard(View view)
-    {
+    public void showDistanceCard(View view) {
         //calculate the average shot for each club before showing distance card
         Profile profile = globals.getCurrentProfile();
         DatabaseHelper db = globals.getDB();
@@ -129,49 +119,60 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
     }
 
 
-    public void showRecommendedClubs(View view)
-    {
+    public void showRecommendedClubs(View view) {
         Profile profile = globals.getCurrentProfile();
         DatabaseHelper db = globals.getDB();
         profile.calculateClubAverageShot(db);
         Intent intent = new Intent(this, RecommendedClubActivity.class);
         startActivity(intent);
 
-
     }
 
-    public void calculateAirDensity(View view)
-    {
+    public void calculateAirDensity(View view) {
         Boolean sensorsValid = this.checkForSensors();
 
         if (sensorsValid) {
-            tempFlag = false;
-            humidFlag = false;
-
-            //get pressure measurements
-            currentSensor = Sensor.TYPE_PRESSURE;
-            sensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_UI);
-
-            while (!tempFlag && !humidFlag) {
-
-                if (tempFlag) {
-                    //get temp measurements
-                    currentSensor = Sensor.TYPE_AMBIENT_TEMPERATURE;
-                    sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_UI);
-                }
-
-                if (humidFlag) {
-                    //get relative humidity measurements
-                    currentSensor = Sensor.TYPE_RELATIVE_HUMIDITY;
-                    sensorManager.registerListener(this, relativeHumiditySensor, SensorManager.SENSOR_DELAY_UI);
-                }
-
-            }
 
             Double ro = ShotCalculator.calculateAirDensity(pressure_hPa * 100, temp_Celsius + 273, relativeHumidity);
 
-            this.showResultsMessage("Results", "Measured Air Density is: " + String.format("%.2f", ro) + " kg/m^3" );
+            this.showResultsMessage("Results", "Measured Air Density is: \n\n" + String.format("%.2f", ro) + " kg/m^3");
         }
+
+    }
+
+    private void initializeDensitySensors()
+    {
+        Boolean sensorsValid = this.checkForSensorsNoMessage();
+
+        if (sensorsValid) {
+
+            //get sensor measurements
+            sensorManager.registerListener(this, pressureSensor, SensorManager.SENSOR_DELAY_FASTEST);
+            sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_FASTEST);
+            sensorManager.registerListener(this, relativeHumiditySensor, SensorManager.SENSOR_DELAY_FASTEST);
+        }
+
+
+
+    }
+
+    private Boolean checkForSensorsNoMessage()
+    {
+        Boolean valid = true;
+        if(pressureSensor == null)
+        {
+            valid = false;
+        }
+        if (temperatureSensor == null)
+        {
+            valid = false;
+        }
+        if (relativeHumiditySensor == null)
+        {
+            valid = false;
+        }
+
+        return valid;
 
     }
 
