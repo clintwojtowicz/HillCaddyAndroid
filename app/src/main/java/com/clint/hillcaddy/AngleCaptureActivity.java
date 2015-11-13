@@ -99,7 +99,7 @@ public class AngleCaptureActivity extends Activity implements SensorEventListene
     {
         //when the button is pressed this captures the current angle
         //register the listener then get the data from the onSensorChanged function
-        sensorManager.registerListener(this, gravitySensor, SensorManager.SENSOR_DELAY_UI);
+        sensorManager.registerListener(this, gravitySensor, SensorManager.SENSOR_DELAY_FASTEST);
 
 
 
@@ -126,7 +126,10 @@ public class AngleCaptureActivity extends Activity implements SensorEventListene
         builder.setMessage(m);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){}
+            public void onClick(DialogInterface dialog, int id){
+                //return to the previous screen because there is no gravity sensor available
+                onBackPressed();
+            }
         });
 
         builder.show();

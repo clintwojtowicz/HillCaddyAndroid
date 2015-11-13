@@ -49,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void showCreateProfileView(MenuItem view)
+    {
+        //show Create New Profile view
+        Intent intent = new Intent(this, CreateProfileActivity.class);
+        startActivity(intent);
+
+    }
+
     public void showCreateProfileView(View view)
     {
         //show Create New Profile view

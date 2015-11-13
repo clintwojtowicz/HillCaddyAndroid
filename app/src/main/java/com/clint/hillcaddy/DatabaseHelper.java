@@ -357,4 +357,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     }
 
+    public void removeClub(String user, String club)
+    {
+        //remove all shots for that club
+        SQLiteDatabase db = getWritableDatabase();
+        String command = "DELETE FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"';";
+        db.execSQL(command);
+
+        //delete the club from the club list
+        command = "DELETE FROM "+user+"_clubs WHERE "+KEY_CLUBNAME+"= '"+club+"';";
+        db.execSQL(command);
+
+        db.close();
+
+    }
+
 }

@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/captureAngleButton"
-        android:background="@drawable/angle_capture_diagram"
+        android:background="@drawable/angle_capture_diagram_upright"
         android:onClick="captureAngle"/>
 
 

@@ -44,6 +44,22 @@ public class Profile
         //TODO: also add the club to the DB
     }
 
+    public void removeClubFromBag(String targetClub)
+    {
+        ListIterator<Club> iterator = bag.listIterator();
+
+        while(iterator.hasNext())
+        {
+            Club currentClub = iterator.next();
+            if(currentClub.getName() == targetClub)
+            {
+                iterator.remove();
+                break;
+            }
+        }
+
+    }
+
     public ArrayList<String> getClubNameList()
     {
         ArrayList<String> clubNames = new ArrayList<String>();
