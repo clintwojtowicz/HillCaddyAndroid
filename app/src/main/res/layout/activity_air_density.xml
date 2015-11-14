@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.clint.hillcaddy.AirDensityActivity"
     android:orientation="vertical"
-    android:background="@drawable/fallbrook_cropped">
+    android:id="@+id/airDensity_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:textSize="14sp"
             android:paddingTop="20dp"
             android:paddingBottom="10dp"
+            android:textStyle="bold"
             android:textColor="@android:color/black"/>
 
         <EditText
@@ -45,6 +46,7 @@
             android:textSize="14sp"
             android:paddingTop="20dp"
             android:paddingBottom="10dp"
+            android:textStyle="bold"
             android:textColor="@android:color/black"/>
 
         <EditText
@@ -70,6 +72,7 @@
             android:textSize="14sp"
             android:paddingTop="20dp"
             android:paddingBottom="10dp"
+            android:textStyle="bold"
             android:textColor="@android:color/black"/>
 
         <EditText

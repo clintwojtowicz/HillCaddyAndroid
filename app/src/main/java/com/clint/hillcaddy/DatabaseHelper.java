@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "hillcaddy";
     private static final String TABLE_PROFILES = "profiles";
+    private static final String TABLE_SETTINGS = "settings";
 
     //profiles table
     private static final String KEY_NAME = "name";
@@ -30,6 +31,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final String KEY_SIDESPIN = "sidespin";
     private static final String KEY_ANGLE = "launchAngle";
 
+    //settings table
+    private static final String KEY_RO = "ro";
+    private static final String KEY_BACKGROUND = "background";
+
 
     public DatabaseHelper(Context context)
     {
@@ -40,8 +45,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         //create profile table if it doesn't already exist
-        String createProfileTable = "CREATE TABLE IF NOT EXISTS "+TABLE_PROFILES+"("+KEY_NAME+" VARCHAR, "+KEY_LASTUSED+" INTEGER);";
-        db.execSQL(createProfileTable);
+        String command = "CREATE TABLE IF NOT EXISTS "+TABLE_PROFILES+"("+KEY_NAME+" VARCHAR, "+KEY_LASTUSED+" INTEGER);";
+        db.execSQL(command);
+
+        //create settings table if it doesn't exist
+        createSettingsTable();
 
 
     }
@@ -369,6 +377,109 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL(command);
 
         db.close();
+
+    }
+
+    public void checkForNullSettings(SQLiteDatabase db)
+    {
+        String command = "SELECT * FROM "+TABLE_SETTINGS+" ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        if(!cursor.moveToFirst())
+        {
+            //set default settings
+            ContentValues values = new ContentValues();
+            values.put(KEY_RO, Constants.roAirSeaLvl);
+            values.put(KEY_BACKGROUND, 1);
+            db.insert(TABLE_SETTINGS, null, values);
+
+        }
+
+        cursor.close();
+
+    }
+
+    public void saveRoSetting(Double ro)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //save last used ro to settings
+        String command = "UPDATE "+TABLE_SETTINGS+" SET "+KEY_RO+"= "+ro.toString()+";";
+        db.execSQL(command);
+        db.close();
+
+    }
+
+    public Double getRoFromSettings()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String command = "SELECT * FROM "+TABLE_SETTINGS+" ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        Double rv;
+
+        if(cursor.moveToFirst())
+        {
+            rv = cursor.getDouble(0);
+        }
+        else
+        {
+            rv = Constants.roAirSeaLvl;
+        }
+
+        cursor.close();
+        db.close();
+        return rv;
+
+    }
+
+    public void saveBackgroundSetting(Integer background)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //this is a check to make sure the settings table has been created
+        //createSettingsTable();
+
+        //save last background image to settings
+        String command = "UPDATE "+TABLE_SETTINGS+" SET "+KEY_BACKGROUND+" = "+background.toString()+";";
+        db.execSQL(command);
+        db.close();
+
+    }
+
+    public Integer getBackgroundFromSettings()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String command = "SELECT * FROM "+TABLE_SETTINGS+" ;";
+        Cursor cursor = db.rawQuery(command, null);
+
+        Integer rv;
+
+        if(cursor.moveToFirst())
+        {
+            rv = cursor.getInt(1);
+        }
+        else
+        {
+            rv = 1;
+        }
+
+        cursor.close();
+        db.close();
+        return rv;
+
+    }
+
+    public void createSettingsTable()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //create settings table if it doesn't exist
+        String command = "CREATE TABLE IF NOT EXISTS "+TABLE_SETTINGS+"("+KEY_RO+" DOUBLE, "+KEY_BACKGROUND+" INTEGER);";
+        db.execSQL(command);
+        checkForNullSettings(db);
 
     }
 

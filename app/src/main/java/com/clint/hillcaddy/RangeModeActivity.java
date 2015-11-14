@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -25,7 +27,6 @@ public class RangeModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_range_mode);
         globals = ((GlobalVars)getApplicationContext());
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        updateClubsSpinner();
     }
 
     @Override
@@ -48,6 +49,14 @@ public class RangeModeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        setBackgroundImage();
+        updateClubsSpinner();
+        super.onResume();
     }
 
     public void addShot(View view)
@@ -121,8 +130,9 @@ public class RangeModeActivity extends AppCompatActivity {
         builder.setTitle("Error");
         builder.setMessage(m);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){}
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
         });
 
         builder.show();
@@ -157,6 +167,28 @@ public class RangeModeActivity extends AppCompatActivity {
 
 
     }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setBackgroundImage()
+    {
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.rangeMode_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.colorado_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
+
+    }
+
 
 
 }

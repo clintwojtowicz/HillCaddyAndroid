@@ -1,6 +1,7 @@
 package com.clint.hillcaddy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -212,6 +213,14 @@ public class ViewShotsActivity extends AppCompatActivity implements EventListene
 
         showShots();
 
+
+    }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
 
     }
 

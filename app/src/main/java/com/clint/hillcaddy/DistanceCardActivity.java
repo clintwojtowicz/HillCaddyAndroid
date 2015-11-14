@@ -1,5 +1,6 @@
 package com.clint.hillcaddy;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,6 +28,13 @@ public class DistanceCardActivity extends AppCompatActivity {
         globals = ((GlobalVars) getApplicationContext());
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.showDistanceCard();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        setBackgroundImage();
+        super.onResume();
     }
 
     @Override
@@ -94,6 +103,27 @@ public class DistanceCardActivity extends AppCompatActivity {
             tbrow.addView(t2v);
 
             distanceTable.addView(tbrow);
+        }
+
+    }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setBackgroundImage()
+    {
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.distanceCard_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
         }
 
     }

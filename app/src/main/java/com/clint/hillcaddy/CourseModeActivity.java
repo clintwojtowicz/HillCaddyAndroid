@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class CourseModeActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -67,6 +70,7 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
     @Override
     protected void onResume() {
         initializeDensitySensors();
+        setBackgroundImage();
         super.onResume();
     }
 
@@ -243,5 +247,26 @@ public class CourseModeActivity extends AppCompatActivity implements SensorEvent
         });
 
         builder.show();
+    }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setBackgroundImage()
+    {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.courseMode_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
+
     }
 }

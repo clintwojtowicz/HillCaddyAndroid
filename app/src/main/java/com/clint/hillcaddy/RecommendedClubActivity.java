@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class RecommendedClubActivity extends AppCompatActivity {
     public final static String EXTRA_ZDIST = "com.clint.hillcaddy.Z_DISTANCE";
 
     GlobalVars globals;
+    LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +34,6 @@ public class RecommendedClubActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recommended_club);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         globals = ((GlobalVars)getApplicationContext());
-
-
 
     }
 
@@ -64,6 +66,8 @@ public class RecommendedClubActivity extends AppCompatActivity {
         Integer angleCaptured = intent.getIntExtra(AngleCaptureActivity.EXTRA_THETA, 0);
         EditText angleText = (EditText) findViewById(R.id.angle_recommendClub_editText);
         angleText.setText(angleCaptured.toString());
+
+        setBackgroundImage();
 
         super.onResume();
     }
@@ -118,12 +122,7 @@ public class RecommendedClubActivity extends AppCompatActivity {
             startActivity(intent);
 
 
-
-
         }
-
-
-
 
     }
 
@@ -146,6 +145,27 @@ public class RecommendedClubActivity extends AppCompatActivity {
         View view = this.getCurrentFocus();
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+    }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setBackgroundImage()
+    {
+        layout = (LinearLayout)findViewById(R.id.recommendClub_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
 
     }
 

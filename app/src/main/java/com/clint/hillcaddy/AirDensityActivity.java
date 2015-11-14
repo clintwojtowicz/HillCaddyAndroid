@@ -3,7 +3,9 @@ package com.clint.hillcaddy;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.text.DecimalFormat;
 
@@ -203,5 +207,26 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
         });
 
         builder.show();
+    }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setBackgroundImage()
+    {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.airDensity_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
+
     }
 }

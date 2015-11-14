@@ -1,6 +1,8 @@
 package com.clint.hillcaddy;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -23,6 +26,13 @@ public class AddClubActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_club);
         globals = ((GlobalVars)getApplicationContext());
         updateClubsSpinner();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        setBackgroundImage();
+        super.onResume();
     }
 
     @Override
@@ -115,7 +125,28 @@ public class AddClubActivity extends AppCompatActivity {
     {
         View view = this.getCurrentFocus();
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+    }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setBackgroundImage()
+    {
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.addClub_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.colorado_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
 
     }
 

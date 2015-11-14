@@ -56,5 +56,15 @@ public class Conversion
         return (float)((tempF - 32) / 1.8);
     }
 
+    public static Integer boolToInt(Boolean b)
+    {
+        return b ? 1 : 0;
+    }
+
+    public static Boolean intToBool(Integer i)
+    {
+        return i != 0;
+    }
+
 
 }

@@ -10,8 +10,8 @@ import java.util.List;
 public class GlobalVars extends Application
 {
     private Profile currentProfile = new Profile();
-    private Double ro = 1.2;        //default setting for air density is 1.2
-
+    private Double ro = Constants.roAirSeaLvl;
+    private Boolean backgroundImage = true;
     private DatabaseHelper db = new DatabaseHelper(this);
 
     public void setCurrentProfile(Profile profile)
@@ -51,7 +51,7 @@ public class GlobalVars extends Application
     {
         if (ro == null)
         {
-            this.ro = Constants.roAirSeaLvl;
+            this.ro = db.getRoFromSettings();
         }
 
         return this.ro;
@@ -60,8 +60,24 @@ public class GlobalVars extends Application
     public void setRo(Double newRo)
     {
         this.ro = newRo;
+        db.saveRoSetting(newRo);
     }
 
+    public void setBackgroundSetting(Boolean setting)
+    {
+        backgroundImage = setting;
+        db.saveBackgroundSetting(Conversion.boolToInt(setting));
+    }
+
+    public Boolean getBackgroundSetting()
+    {
+        if(backgroundImage == null)
+        {
+            this.backgroundImage = Conversion.intToBool(db.getBackgroundFromSettings());
+        }
+
+        return this.backgroundImage;
+    }
 
 
 }

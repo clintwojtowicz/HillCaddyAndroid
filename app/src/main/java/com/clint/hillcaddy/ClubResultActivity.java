@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -37,6 +38,13 @@ public class ClubResultActivity extends AppCompatActivity {
         globals = ((GlobalVars)getApplicationContext());
 
         showShotResults(Ydist, Zdist);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        setBackgroundImage();
+        super.onResume();
     }
 
     @Override
@@ -159,6 +167,25 @@ public class ClubResultActivity extends AppCompatActivity {
 
     }
 
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
 
+    }
+
+    private void setBackgroundImage()
+    {
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.clubResult_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
+
+    }
 
 }

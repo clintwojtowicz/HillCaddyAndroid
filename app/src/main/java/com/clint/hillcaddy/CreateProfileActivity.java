@@ -3,7 +3,9 @@ package com.clint.hillcaddy;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class CreateProfileActivity extends AppCompatActivity {
 
@@ -22,6 +26,13 @@ public class CreateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_profile);
         globals = ((GlobalVars)getApplicationContext());
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        setBackgroundImage();
+        super.onResume();
     }
 
     @Override
@@ -99,5 +110,26 @@ public class CreateProfileActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public void showSettingsView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void setBackgroundImage()
+    {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.createProfile_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.torrey_cropped);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
+
     }
 }

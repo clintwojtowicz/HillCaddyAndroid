@@ -76,6 +76,10 @@
     <string name="humidity_airDens_text">Relative Humidity (%): </string>
     <string name="calc_airDens_button">Calculate Air Density</string>
     <string name="default_airDens_button">Reset Air Density to Default</string>
+    <string name="title_activity_settings">Settings</string>
+
+    //Settings Activity
+    <string name="background_settings_text">Show Background Images</string>
 
 
 
