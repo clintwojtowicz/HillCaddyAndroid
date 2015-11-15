@@ -30,8 +30,8 @@ public class ClubResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_club_result);
 
         Intent intent = getIntent();
-        Integer Zdist = intent.getIntExtra(RecommendedClubActivity.EXTRA_ZDIST, 0);
-        Integer Ydist = intent.getIntExtra(RecommendedClubActivity.EXTRA_YDIST, 0);
+        Integer Zdist = intent.getIntExtra(CourseModeActivity.EXTRA_ZDIST, 0);
+        Integer Ydist = intent.getIntExtra(CourseModeActivity.EXTRA_YDIST, 0);
 
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -180,7 +180,7 @@ public class ClubResultActivity extends AppCompatActivity {
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.clubResult_background);
 
         if(globals.getBackgroundSetting()) {
-            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped_opaque);
         }
         else{
             layout.setBackgroundColor(Color.WHITE);

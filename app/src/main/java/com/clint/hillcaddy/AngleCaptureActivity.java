@@ -86,7 +86,7 @@ public class AngleCaptureActivity extends Activity implements SensorEventListene
         theta = -1 * Math.atan(yGrav/xGrav);
         int thetaRoundedDegrees = (int) Math.round(Conversion.radiansToDegrees(theta));
 
-        Intent intent = new Intent(this, RecommendedClubActivity.class);
+        Intent intent = new Intent(this, CourseModeActivity.class);
         intent.putExtra(EXTRA_THETA, thetaRoundedDegrees);
         startActivity(intent);
 

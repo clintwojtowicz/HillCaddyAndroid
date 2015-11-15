@@ -71,9 +71,8 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         relativeHumiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-
+        setBackgroundImage();
         showDataForWorkingSensors();
-
         super.onResume();
     }
 
@@ -222,7 +221,7 @@ public class AirDensityActivity extends AppCompatActivity implements SensorEvent
         LinearLayout layout = (LinearLayout)findViewById(R.id.airDensity_background);
 
         if(globals.getBackgroundSetting()) {
-            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped_opaque);
         }
         else{
             layout.setBackgroundColor(Color.WHITE);

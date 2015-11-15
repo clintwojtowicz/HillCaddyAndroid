@@ -19,7 +19,6 @@
             android:text="@string/range_sel_club"
             android:paddingBottom="10dp"
             android:textSize = "18dp"
-            android:textStyle="bold"
             android:textColor="@android:color/black"/>
 
         <Spinner
@@ -43,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ball_speed_text"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 android:paddingTop="20dp"
                 android:paddingBottom="10dp"
                 android:textColor="@android:color/black"/>
@@ -68,7 +66,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/back_spin_text"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 android:paddingBottom="10dp"
                 android:textColor="@android:color/black"/>
 
@@ -93,7 +90,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/side_spin_text"
-                android:textStyle="bold"
                 android:textSize="14sp"
                 android:paddingBottom="10dp"
                 android:textColor="@android:color/black"/>
@@ -119,7 +115,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/launch_angle_text"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 android:paddingBottom="10dp"
                 android:textColor="@android:color/black"/>
 

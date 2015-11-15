@@ -21,8 +21,8 @@
 
     //Course Mode Activity
     <string name="title_activity_course_mode">Course Mode</string>
-    <string name="viewDistanceCard_course_button">View Club Distance Card</string>
-    <string name="calcClub_course_button">Launch Club Calculator</string>
+    <string name="viewDistanceCard_course_button">Distance Card</string>
+    <string name="calcClub_course_button">Club Calculator</string>
     <string name="calcDensity_course_button">Calculate Air Density</string>
 
 
@@ -55,13 +55,14 @@
 
     //Recommended club Activity
     <string name="title_activity_recommended_club">Club Calculator</string>
-    <string name="instructions_recommendClub_text">Instructions:
-        \n\n-Manually enter the angle to target or press \"Auto Capture Angle w/ Phone\" to use the device\'s hardware to get the angle to the target.
-        \n\n-Enter the distance to the target as measured by a laser range finder and press \"Calculate Best Club\".</string>
-    <string name="distance_recommendClub_text">Straight Line Distance to Target (yds)</string>
-    <string name="angle_recommendClub_text">Angle to Target (deg)</string>
+    <string name="instructions_recommendClub_text">1) Manually enter the angle to target or press the angle button next to the text field to use the device\'s hardware to get the angle to the target.
+        \n\n2) Enter the distance to the target as measured by a laser range finder.
+        \n\n3) Press \"Calculate Best Club\" to see the best club based on the conditions.
+        \n\n*note: Press the air density button to update the air density and to get more accurate results.</string>
+    <string name="distance_recommendClub_text">Distance to Target (yds):</string>
+    <string name="angle_recommendClub_text">Angle to Target (deg):</string>
     <string name="angleDesc_recommendClub_text">*note: - for downhill, + for uphill</string>
-    <string name="angleCapt_recommendClub_button">Auto Capture Angle w/ Phone</string>
+    <string name="angleCapt_recommendClub_button">Capture Angle w/ Phone</string>
     <string name="calcClub_recommendClub_button">Calculate Best Club</string>
 
     //Angle Capture Activity

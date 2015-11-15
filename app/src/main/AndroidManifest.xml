@@ -26,14 +26,6 @@
                 android:value="com.clint.hillcaddy.MainActivity" />
         </activity>
         <activity
-            android:name=".SelectModeActivity"
-            android:label="@string/title_activity_select_mode"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.clint.hillcaddy.MainActivity" />
-        </activity>
-        <activity
             android:name=".CourseModeActivity"
             android:label="@string/title_activity_course_mode"
             android:parentActivityName=".MainActivity" >
@@ -74,28 +66,20 @@
                 android:value="com.clint.hillcaddy.CourseModeActivity" />
         </activity>
         <activity
-            android:name=".RecommendedClubActivity"
-            android:label="@string/title_activity_recommended_club"
+            android:name=".AngleCaptureActivity"
+            android:label="@string/title_activity_angle_capture"
             android:parentActivityName=".CourseModeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clint.hillcaddy.CourseModeActivity" />
         </activity>
         <activity
-            android:name=".AngleCaptureActivity"
-            android:label="@string/title_activity_angle_capture"
-            android:parentActivityName=".RecommendedClubActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.clint.hillcaddy.RecommendedClubActivity" />
-        </activity>
-        <activity
             android:name=".ClubResultActivity"
             android:label="@string/title_activity_club_result"
-            android:parentActivityName=".RecommendedClubActivity" >
+            android:parentActivityName=".CourseModeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.clint.hillcaddy.RecommendedClubActivity" />
+                android:value="com.clint.hillcaddy.CourseModeActivity" />
         </activity>
         <activity
             android:name=".AirDensityActivity"

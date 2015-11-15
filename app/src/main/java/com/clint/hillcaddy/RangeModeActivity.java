@@ -181,7 +181,7 @@ public class RangeModeActivity extends AppCompatActivity {
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.rangeMode_background);
 
         if(globals.getBackgroundSetting()) {
-            layout.setBackgroundResource(R.drawable.colorado_cropped);
+            layout.setBackgroundResource(R.drawable.colorado_cropped_opaque);
         }
         else{
             layout.setBackgroundColor(Color.WHITE);

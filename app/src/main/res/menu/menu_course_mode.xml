@@ -4,4 +4,7 @@
     tools:context="com.clint.hillcaddy.CourseModeActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" android:onClick="showSettingsView"/>
+    <item android:title="Instructions"
+        android:orderInCategory="99"
+        android:onClick="showInstructions"/>
 </menu>

@@ -120,7 +120,7 @@ public class DistanceCardActivity extends AppCompatActivity {
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.distanceCard_background);
 
         if(globals.getBackgroundSetting()) {
-            layout.setBackgroundResource(R.drawable.fallbrook_cropped);
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped_opaque);
         }
         else{
             layout.setBackgroundColor(Color.WHITE);
