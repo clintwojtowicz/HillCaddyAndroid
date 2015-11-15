@@ -26,6 +26,9 @@ public class CreateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_profile);
         globals = ((GlobalVars)getApplicationContext());
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        DatabaseHelper db = globals.getDB();
+        db.removeProfile("Elizabeth ");
     }
 
     @Override

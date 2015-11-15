@@ -66,6 +66,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         boolean valid = false;
 
+        //get rid of any spaces
+        user = user.replaceAll(" ","");
+
         if(checkForOriginalProfile(user, db))
         {
             ContentValues values = new ContentValues();
@@ -104,6 +107,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public List<Club> loadClubList(String user, SQLiteDatabase db)
     {
+        user = user.replaceAll(" ","");
+
         String command = "SELECT "+KEY_CLUBNAME+ " FROM "+user+"_clubs ;";
         Cursor cursor = db.rawQuery(command, null);
 
@@ -143,8 +148,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void removeProfile(String user)
     {
+
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PROFILES, KEY_NAME + " = ?", new String[] {user});
+
+        user = user.replaceAll(" ","");
         removeShotTable(user, db);
         removeClubTable(user, db);
 
@@ -167,6 +175,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void addShot(String user, String club, Shot newShot)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+
+        user = user.replaceAll(" ","");
 
         ContentValues values = new ContentValues();
         values.put(KEY_CLUBNAME, club);
@@ -245,6 +255,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public List<Club> getClubList(String user)
     {
+        user = user.replaceAll(" ","");
+
         SQLiteDatabase db = getReadableDatabase();
         String command = "SELECT "+KEY_CLUBNAME+ " FROM "+user+"_clubs ;";
         Cursor cursor = db.rawQuery(command, null);
@@ -283,6 +295,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void addClub(String user, Club club)
     {
+        user = user.replaceAll(" ","");
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -317,6 +331,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public List<Shot> getShots(String user, String club)
     {
+        user = user.replaceAll(" ","");
+
         SQLiteDatabase db = getReadableDatabase();
         String command = "SELECT "+KEY_SHOTID+", "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_SIDESPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
         Cursor cursor = db.rawQuery(command, null);
@@ -336,6 +352,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void removeShot(String user, String club, Integer shotID)
     {
+        user = user.replaceAll(" ","");
+
         SQLiteDatabase db = getWritableDatabase();
         String command = "DELETE FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' AND "+KEY_SHOTID+"= "+shotID+";";
         db.execSQL(command);
@@ -344,6 +362,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public List<Shot> getShotList(String club, String user)
     {
+        user = user.replaceAll(" ","");
+
         SQLiteDatabase db = getReadableDatabase();
         String command = "SELECT "+KEY_SHOTID+", "+KEY_BALLSPEED+", "+KEY_BACKSPIN+", "+KEY_SIDESPIN+", "+KEY_ANGLE+" FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"' ;";
         Cursor cursor = db.rawQuery(command, null);
@@ -367,6 +387,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void removeClub(String user, String club)
     {
+        user = user.replaceAll(" ","");
+
         //remove all shots for that club
         SQLiteDatabase db = getWritableDatabase();
         String command = "DELETE FROM "+user+"_shots WHERE "+KEY_CLUBNAME+"= '"+club+"';";
