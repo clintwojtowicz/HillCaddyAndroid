@@ -141,6 +141,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void showAboutView(MenuItem view)
+    {
+        //show Settings view
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+
+    }
+
     private void setBackgroundImage()
     {
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.main_background);

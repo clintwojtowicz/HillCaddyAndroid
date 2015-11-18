@@ -5,4 +5,6 @@
         android:orderInCategory="100" app:showAsAction="never"  android:onClick="showSettingsView"/>
     <item android:title="Create New Profile"
         android:orderInCategory="101" android:onClick="showCreateProfileView"/>
+    <item android:title="About HillCaddy"
+        android:orderInCategory="102" android:onClick="showAboutView"/>
 </menu>

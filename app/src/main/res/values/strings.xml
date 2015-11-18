@@ -81,6 +81,19 @@
 
     //Settings Activity
     <string name="background_settings_text">Show Background Images</string>
+    <string name="title_activity_about">About HillCaddy</string>
+
+    //About Activity
+    <string name="about_text">Developed by Clint Wojtowicz
+        \n\nI can be reached at clint.wojtowicz@gmail.com with any questions or comments.</string>
+    <string name="bugs_text">The app was designed and tested using a Samsung Galaxy S5, if there are compatibility issues with your device, please send me an email with a description of the issue. </string>
+    <string name="thanks_text">Special thanks to:
+        \n\n  -Matt Pianowski for drawing the logo.
+        \n\n  -Peter Ligotti at Callaway for his suggestion to use the accelerometer for angle capture.
+        \n\n  -The Integrated Systems team at Callaway for their UI design advice and for allowing me to use their Foresight GC2 to capture shot data.
+        \n\n  -Dr. Charles De Leone at Cal State San Marcos for his advice and mentoring throughout the project.
+        \n\n  -My Dad for constantly asking how far uphill and downhill shots will play which lead me to the idea for the app.
+    </string>
 
 
 

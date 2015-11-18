@@ -67,17 +67,17 @@ public class DistanceCardActivity extends AppCompatActivity {
         TableRow header = new TableRow(this);
 
         TextView tv0 = new TextView(this);
-        tv0.setText("Club      ");
+        tv0.setText("   Club     ");
         tv0.setTextColor(Color.BLACK);
         tv0.setTypeface(null, Typeface.BOLD);
-        tv0.setTextSize(25);
+        tv0.setTextSize(22);
         header.addView(tv0);
 
         TextView tv1 = new TextView(this);
-        tv1.setText("Carry Distance (yds) ");
+        tv1.setText("Carry Distance (yds)");
         tv1.setTextColor(Color.BLACK);
         tv1.setTypeface(null, Typeface.BOLD);
-        tv1.setTextSize(25);
+        tv1.setTextSize(22);
         header.addView(tv1);
 
         distanceTable.addView(header);
@@ -91,15 +91,15 @@ public class DistanceCardActivity extends AppCompatActivity {
             TextView t1v = new TextView(this);
             t1v.setText(shot.getClubName());
             t1v.setTextColor(Color.BLACK);
-            t1v.setTypeface(null, Typeface.BOLD);
-            t1v.setTextSize(20);
+            t1v.setGravity(Gravity.CENTER);
+            t1v.setTextSize(18);
             tbrow.addView(t1v);
 
             TextView t2v = new TextView(this);
             t2v.setText(shot.getDistance().toString());
             t2v.setTextColor(Color.BLACK);
-            t2v.setTypeface(null, Typeface.BOLD);
-            t2v.setTextSize(20);
+            t2v.setGravity(Gravity.CENTER);
+            t2v.setTextSize(18);
             tbrow.addView(t2v);
 
             distanceTable.addView(tbrow);
