@@ -62,7 +62,7 @@ public class ShotCalculator
             pos.y = pos.y + velocity.y * dt;
             pos.z = pos.z + velocity.z * dt;
 
-            Cd = getDragCoef(spin.magnitude());     //drag increases with spin due to turbulence
+            Cd = getDragCoef(spin.x);     //drag increases with spin due to turbulence
 
             // magnus accel = spin coefficient * (spin X velocity) / Mass
             magnusAccel.x = Cl * (spin.y * velocity.z - spin.z * velocity.y) / Constants.MASS_GB;
@@ -86,7 +86,10 @@ public class ShotCalculator
 
     private static Double getDragCoef(Double spin)
     {
-        return Constants.C_DRAG_INITIAL + (Conversion.radpsToRpm(spin) * Constants.SPIN_WEIGHT);
+        Double spin_rpm = Conversion.radpsToRpm(spin);
+        Double cd = (Constants.C_DRAG_SECOND * spin_rpm * spin_rpm) + (Constants.C_DRAG_FIRST * spin_rpm) + Constants.C_DRAG_INITIAL;
+        if (cd > Constants.C_MAX) cd = Constants.C_MAX;
+        return cd;
     }
 
     private static Vector3D getLaunchVector(Double speed, Double launchAngle, Double azimuthAngle)
