@@ -62,7 +62,7 @@ public class ShotCalculator
             pos.y = pos.y + velocity.y * dt;
             pos.z = pos.z + velocity.z * dt;
 
-            Cd = getDragCoef(spin.x);     //drag increases with spin due to turbulence
+            Cd = getDragCoef(spin.magnitude());     //drag increases with spin due to turbulence
 
             // magnus accel = spin coefficient * (spin X velocity) / Mass
             magnusAccel.x = Cl * (spin.y * velocity.z - spin.z * velocity.y) / Constants.MASS_GB;
