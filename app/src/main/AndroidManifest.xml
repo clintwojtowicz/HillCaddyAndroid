@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.clint.hillcaddy" >
+    package="com.clint.hillcaddy"
+    android:versionCode="2"
+    android:versionName="1.1">
+
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false"/>
+    <uses-feature android:name="android.hardware.sensor.barometer" android:required="false"/>
 
     <application
         android:name=".GlobalVars"
@@ -105,6 +110,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clint.hillcaddy.MainActivity" />
         </activity>
+
     </application>
+
+
+
 
 </manifest>

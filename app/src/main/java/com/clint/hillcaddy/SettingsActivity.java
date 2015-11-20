@@ -23,8 +23,8 @@ public class SettingsActivity extends AppCompatActivity implements EventListener
         backgroundCheckBox = (CheckBox)findViewById(R.id.background_settings_checkBox);
 
         //make sure the settings table has been created
-        DatabaseHelper db = globals.getDB();
-        db.createSettingsTable();
+        //DatabaseHelper db = globals.getDB();
+        //db.createSettingsTable();
 
     }
 

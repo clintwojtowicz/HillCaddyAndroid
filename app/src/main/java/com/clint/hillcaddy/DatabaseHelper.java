@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.execSQL(command);
 
         //create settings table if it doesn't exist
-        createSettingsTable();
+        createSettingsTable(db);
 
 
     }
@@ -494,10 +494,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     }
 
-    public void createSettingsTable()
+    public void createSettingsTable(SQLiteDatabase db)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
-
         //create settings table if it doesn't exist
         String command = "CREATE TABLE IF NOT EXISTS "+TABLE_SETTINGS+"("+KEY_RO+" DOUBLE, "+KEY_BACKGROUND+" INTEGER);";
         db.execSQL(command);
