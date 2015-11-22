@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -68,6 +70,7 @@ public class ViewShotsActivity extends AppCompatActivity implements EventListene
 
     @Override
     protected void onResume() {
+        setBackgroundImage();
         super.onResume();
     }
 
@@ -224,9 +227,18 @@ public class ViewShotsActivity extends AppCompatActivity implements EventListene
 
     }
 
+    private void setBackgroundImage()
+    {
+        LinearLayout layout = (LinearLayout)findViewById(R.id.viewShots_background);
 
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.torrey_2_cropped_opaque);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
 
-
+    }
 
 
 }

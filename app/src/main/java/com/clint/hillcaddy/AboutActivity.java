@@ -1,16 +1,30 @@
 package com.clint.hillcaddy;
 
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 public class AboutActivity extends AppCompatActivity {
+
+    GlobalVars globals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        globals = ((GlobalVars)getApplicationContext());
+    }
+
+    @Override
+    protected void onResume()
+    {
+        setBackgroundImage();
+        super.onResume();
     }
 
     @Override
@@ -33,5 +47,18 @@ public class AboutActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setBackgroundImage()
+    {
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.about_background);
+
+        if(globals.getBackgroundSetting()) {
+            layout.setBackgroundResource(R.drawable.fallbrook_cropped_opaque);
+        }
+        else{
+            layout.setBackgroundColor(Color.WHITE);
+        }
+
     }
 }

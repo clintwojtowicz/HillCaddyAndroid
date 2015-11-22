@@ -91,13 +91,13 @@ public class AddClubActivity extends AppCompatActivity {
     {
         //get the club name from the spinner and remove it from the profile and db
         Spinner clubSpinner = (Spinner)findViewById(R.id.selClub_edit_Spinner);
-        String clubUsed = clubSpinner.getSelectedItem().toString();
 
         DatabaseHelper db = globals.getDB();
         Profile profile = globals.getCurrentProfile();
 
-        if(!clubUsed.isEmpty())
+        if(clubSpinner.getCount() > 0)
         {
+            String clubUsed = clubSpinner.getSelectedItem().toString();
             profile.removeClubFromBag(clubUsed);
             db.removeClub(profile.getName(), clubUsed);
             updateClubsSpinner();
